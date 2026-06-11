@@ -1,10 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => setUser(session?.user ?? null)
+    );
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
@@ -31,17 +43,29 @@ export function Header() {
                 </a>
               )
             )}
+            <Link href="/loja" className="text-sm font-medium text-slate-500 hover:text-primary transition-colors">
+              Loja
+            </Link>
           </nav>
 
           <div className="flex items-center gap-3">
-            <a
-              href="#"
-              className="hidden sm:inline-flex text-sm font-semibold text-slate-600 hover:text-primary transition-colors"
-            >
-              Entrar
-            </a>
-            <a
-              href="#reservar"
+            {user ? (
+              <Link
+                href="/painel"
+                className="hidden sm:inline-flex text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+              >
+                Meu Painel
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="hidden sm:inline-flex text-sm font-semibold text-slate-600 hover:text-primary transition-colors"
+              >
+                Entrar
+              </Link>
+            )}
+            <Link
+              href={user ? "/painel/reservas" : "/cadastro"}
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-lg transition-colors"
             >
               <svg
@@ -58,7 +82,7 @@ export function Header() {
                 />
               </svg>
               Reservar Agora
-            </a>
+            </Link>
             <button
               className="lg:hidden p-2 text-slate-500"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -103,12 +127,18 @@ export function Header() {
                 </a>
               )
             )}
-            <a
-              href="#"
-              className="block px-3 py-2 text-sm font-semibold text-primary"
-            >
-              Entrar
-            </a>
+            <Link href="/loja" className="block px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary" onClick={() => setMenuOpen(false)}>
+              Loja
+            </Link>
+            {user ? (
+              <Link href="/painel" className="block px-3 py-2 text-sm font-semibold text-primary" onClick={() => setMenuOpen(false)}>
+                Meu Painel
+              </Link>
+            ) : (
+              <Link href="/login" className="block px-3 py-2 text-sm font-semibold text-primary" onClick={() => setMenuOpen(false)}>
+                Entrar
+              </Link>
+            )}
           </div>
         )}
       </div>

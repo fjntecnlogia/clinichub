@@ -1,11 +1,50 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
 
 export default function CadastroPage() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", password: "", type: "profissional" });
+  const [form, setForm] = useState({ nome: "", email: "", phone: "", password: "", tipo: "profissional" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const set = (k: string, v: string) => setForm((p) => ({ ...p, [k]: v }));
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    if (form.password.length < 8) {
+      setError("A senha deve ter no minimo 8 caracteres.");
+      setLoading(false);
+      return;
+    }
+
+    const supabase = createClient();
+    const { error: authError } = await supabase.auth.signUp({
+      email: form.email,
+      password: form.password,
+      options: {
+        data: {
+          nome: form.nome,
+          tipo: form.tipo,
+          telefone: form.phone,
+        },
+      },
+    });
+
+    if (authError) {
+      setError(authError.message);
+      setLoading(false);
+      return;
+    }
+
+    router.push("/painel");
+    router.refresh();
+  }
 
   return (
     <div className="min-h-screen flex">
@@ -54,6 +93,12 @@ export default function CadastroPage() {
             Comece a reservar salas em minutos.
           </p>
 
+          {error && (
+            <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
+              {error}
+            </div>
+          )}
+
           <div className="flex gap-2 p-1 bg-slate-100 rounded-lg mb-6">
             {[
               { v: "profissional", l: "Profissional" },
@@ -61,9 +106,10 @@ export default function CadastroPage() {
             ].map((t) => (
               <button
                 key={t.v}
-                onClick={() => set("type", t.v)}
+                type="button"
+                onClick={() => set("tipo", t.v)}
                 className={`flex-1 py-2 text-sm font-semibold rounded-md transition-colors ${
-                  form.type === t.v
+                  form.tipo === t.v
                     ? "bg-white text-dark shadow-sm"
                     : "text-slate-500"
                 }`}
@@ -73,16 +119,17 @@ export default function CadastroPage() {
             ))}
           </div>
 
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-semibold text-dark mb-1.5">
                 Nome completo
               </label>
               <input
                 type="text"
-                value={form.name}
-                onChange={(e) => set("name", e.target.value)}
+                value={form.nome}
+                onChange={(e) => set("nome", e.target.value)}
                 placeholder="Dr. Joao Silva"
+                required
                 className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
             </div>
@@ -96,6 +143,7 @@ export default function CadastroPage() {
                 value={form.email}
                 onChange={(e) => set("email", e.target.value)}
                 placeholder="seu@email.com"
+                required
                 className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
             </div>
@@ -122,15 +170,17 @@ export default function CadastroPage() {
                 value={form.password}
                 onChange={(e) => set("password", e.target.value)}
                 placeholder="Minimo 8 caracteres"
+                required
                 className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-colors text-sm"
+              disabled={loading}
+              className="w-full py-3 bg-primary hover:bg-primary-dark disabled:opacity-50 text-white font-bold rounded-lg transition-colors text-sm"
             >
-              Criar Conta
+              {loading ? "Criando conta..." : "Criar Conta"}
             </button>
           </form>
 
