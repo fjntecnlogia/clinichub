@@ -1,17 +1,36 @@
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 
-const produtos = [
-  { id: "jaleco-premium-branco", nome: "Jaleco Premium Branco", cat: "Jalecos", preco: 189.9, precoAntigo: 229.9, img: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=400&h=400&fit=crop", badge: "Mais vendido" },
-  { id: "estetoscopio-littmann", nome: "Estetoscopio Littmann Classic III", cat: "Equipamentos", preco: 849.9, img: "https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=400&h=400&fit=crop" },
-  { id: "kit-curativos", nome: "Kit Curativos Estereis (50 un)", cat: "Materiais", preco: 45.9, img: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=400&h=400&fit=crop" },
-  { id: "luvas-nitrilo", nome: "Luvas Nitrilo Descartaveis (cx 100)", cat: "Materiais", preco: 54.9, img: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=400&h=400&fit=crop", badge: "Oferta" },
-  { id: "maca-portatil", nome: "Maca Portatil Premium Dobravel", cat: "Mobiliario", preco: 1290.0, precoAntigo: 1490.0, img: "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&h=400&fit=crop" },
-  { id: "scrub-cirurgico-azul", nome: "Scrub Cirurgico Azul P/M/G", cat: "Roupas", preco: 129.9, img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=400&fit=crop" },
-  { id: "otoscopio-digital", nome: "Otoscopio Digital HD com Camera", cat: "Equipamentos", preco: 1450.0, img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=400&fit=crop", badge: "Novo" },
-  { id: "mascara-n95", nome: "Mascara N95 PFF2 (cx 20)", cat: "Materiais", preco: 39.9, img: "https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=400&h=400&fit=crop" },
+const mockProdutos = [
+  { id: "1", slug: "jaleco-premium-branco", nome: "Jaleco Premium Branco", categoria: "Jalecos", preco: 189.9, preco_antigo: 229.9, foto_url: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=400&h=400&fit=crop", badge: "Mais vendido" },
+  { id: "2", slug: "estetoscopio-littmann", nome: "Estetoscopio Littmann Classic III", categoria: "Equipamentos", preco: 849.9, foto_url: "https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
+  { id: "3", slug: "kit-curativos", nome: "Kit Curativos Estereis (50 un)", categoria: "Materiais", preco: 45.9, foto_url: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
+  { id: "4", slug: "luvas-nitrilo", nome: "Luvas Nitrilo Descartaveis (cx 100)", categoria: "Materiais", preco: 54.9, foto_url: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=400&h=400&fit=crop", preco_antigo: null, badge: "Oferta" },
+  { id: "5", slug: "maca-portatil", nome: "Maca Portatil Premium Dobravel", categoria: "Mobiliario", preco: 1290.0, preco_antigo: 1490.0, foto_url: "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&h=400&fit=crop", badge: null },
+  { id: "6", slug: "scrub-cirurgico-azul", nome: "Scrub Cirurgico Azul P/M/G", categoria: "Roupas", preco: 129.9, foto_url: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
+  { id: "7", slug: "otoscopio-digital", nome: "Otoscopio Digital HD com Camera", categoria: "Equipamentos", preco: 1450.0, foto_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=400&fit=crop", preco_antigo: null, badge: "Novo" },
+  { id: "8", slug: "mascara-n95", nome: "Mascara N95 PFF2 (cx 20)", categoria: "Materiais", preco: 39.9, foto_url: "https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
 ];
 
-export default function LojaPage() {
+async function getProdutos() {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("produtos")
+      .select("*")
+      .eq("ativo", true)
+      .order("created_at", { ascending: false });
+
+    if (error || !data || data.length === 0) return mockProdutos;
+    return data;
+  } catch {
+    return mockProdutos;
+  }
+}
+
+export default async function LojaPage() {
+  const produtos = await getProdutos();
+
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="bg-white border-b border-slate-200 sticky top-0 z-30">
@@ -25,7 +44,6 @@ export default function LojaPage() {
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-secondary text-white text-[10px] font-bold rounded-full flex items-center justify-center">3</span>
             </Link>
             <Link href="/login" className="text-sm font-semibold text-primary hover:text-primary-dark">Entrar</Link>
           </div>
@@ -53,9 +71,9 @@ export default function LojaPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {produtos.map((p) => (
-            <Link key={p.id} href={`/loja/${p.id}`} className="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all">
+            <Link key={p.id} href={`/loja/${p.slug}`} className="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all">
               <div className="relative aspect-square bg-slate-100">
-                <img src={p.img} alt={p.nome} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src={p.foto_url || "https://placehold.co/400x400/e2e8f0/94a3b8?text=Produto"} alt={p.nome} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 {p.badge && (
                   <span className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-bold text-white ${
                     p.badge === "Oferta" ? "bg-red-500" : p.badge === "Novo" ? "bg-accent" : "bg-secondary"
@@ -65,12 +83,12 @@ export default function LojaPage() {
                 )}
               </div>
               <div className="p-4">
-                <span className="text-xs text-slate-400 font-medium">{p.cat}</span>
+                <span className="text-xs text-slate-400 font-medium">{p.categoria}</span>
                 <h3 className="font-bold text-dark mt-1 leading-snug group-hover:text-primary transition-colors">{p.nome}</h3>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="text-lg font-extrabold text-primary">R$ {p.preco.toFixed(2)}</span>
-                  {p.precoAntigo && (
-                    <span className="text-sm text-slate-400 line-through">R$ {p.precoAntigo.toFixed(2)}</span>
+                  <span className="text-lg font-extrabold text-primary">R$ {Number(p.preco).toFixed(2)}</span>
+                  {p.preco_antigo && (
+                    <span className="text-sm text-slate-400 line-through">R$ {Number(p.preco_antigo).toFixed(2)}</span>
                   )}
                 </div>
               </div>

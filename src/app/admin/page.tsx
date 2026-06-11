@@ -1,24 +1,57 @@
-export default function AdminDashboard() {
+import { createClient } from "@/lib/supabase/server";
+
+async function getDashboardData() {
+  try {
+    const supabase = await createClient();
+
+    const [salasRes, reservasRes, usersRes, produtosRes] = await Promise.all([
+      supabase.from("salas").select("id", { count: "exact", head: true }),
+      supabase.from("reservas").select("id, valor, status, data, hora_inicio, hora_fim, sala:salas(nome), profile:profiles(nome)").order("created_at", { ascending: false }).limit(5),
+      supabase.from("profiles").select("id", { count: "exact", head: true }),
+      supabase.from("produtos").select("id", { count: "exact", head: true }),
+    ]);
+
+    return {
+      totalSalas: salasRes.count ?? 0,
+      totalUsuarios: usersRes.count ?? 0,
+      totalProdutos: produtosRes.count ?? 0,
+      reservas: reservasRes.data ?? [],
+      hasData: true,
+    };
+  } catch {
+    return { totalSalas: 0, totalUsuarios: 0, totalProdutos: 0, reservas: [], hasData: false };
+  }
+}
+
+export default async function AdminDashboard() {
+  const data = await getDashboardData();
+
   const kpis = [
-    { label: "Receita Mensal", value: "R$ 48.250", change: "+12%", up: true, icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-    { label: "Reservas Ativas", value: "127", change: "+8%", up: true, icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
-    { label: "Taxa de Ocupacao", value: "84%", change: "+3%", up: true, icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" },
-    { label: "Novos Usuarios", value: "34", change: "-2%", up: false, icon: "M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" },
+    { label: "Salas Cadastradas", value: data.hasData ? String(data.totalSalas) : "6", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
+    { label: "Reservas Recentes", value: data.hasData ? String(data.reservas.length) : "127", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
+    { label: "Usuarios", value: data.hasData ? String(data.totalUsuarios) : "34", icon: "M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" },
+    { label: "Produtos", value: data.hasData ? String(data.totalProdutos) : "6", icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" },
   ];
 
-  const reservas = [
-    { id: "#4521", sala: "Consultorio 3A", prof: "Dra. Ana Costa", data: "11/06/2026", horario: "08:00–12:00", status: "Confirmada" },
-    { id: "#4520", sala: "Sala Cirurgica 1", prof: "Dr. Pedro Alves", data: "11/06/2026", horario: "14:00–18:00", status: "Pendente" },
-    { id: "#4519", sala: "Consultorio 1B", prof: "Dra. Maria Lima", data: "12/06/2026", horario: "09:00–11:00", status: "Confirmada" },
-    { id: "#4518", sala: "Sala de Exames 2", prof: "Dr. Lucas Neto", data: "12/06/2026", horario: "13:00–17:00", status: "Cancelada" },
-    { id: "#4517", sala: "Consultorio 5C", prof: "Dra. Julia Ramos", data: "13/06/2026", horario: "08:00–10:00", status: "Confirmada" },
+  const mockReservas = [
+    { id: "1", sala: { nome: "Consultorio 3A" }, profile: { nome: "Dra. Ana Costa" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Confirmada" },
+    { id: "2", sala: { nome: "Sala Cirurgica 1" }, profile: { nome: "Dr. Pedro Alves" }, data: "2026-06-11", hora_inicio: "14:00", hora_fim: "18:00", valor: 480, status: "Pendente" },
+    { id: "3", sala: { nome: "Consultorio 1B" }, profile: { nome: "Dra. Maria Lima" }, data: "2026-06-12", hora_inicio: "09:00", hora_fim: "11:00", valor: 90, status: "Confirmada" },
+    { id: "4", sala: { nome: "Sala de Exames 2" }, profile: { nome: "Dr. Lucas Neto" }, data: "2026-06-12", hora_inicio: "13:00", hora_fim: "17:00", valor: 320, status: "Cancelada" },
+    { id: "5", sala: { nome: "Consultorio 5C" }, profile: { nome: "Dra. Julia Ramos" }, data: "2026-06-13", hora_inicio: "08:00", hora_fim: "10:00", valor: 120, status: "Confirmada" },
   ];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const reservas: any[] = data.hasData && data.reservas.length > 0 ? data.reservas : mockReservas;
 
   return (
     <div className="p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-extrabold text-dark">Dashboard</h1>
-        <p className="text-slate-500 text-sm mt-1">Visao geral da plataforma</p>
+        <p className="text-slate-500 text-sm mt-1">
+          Visao geral da plataforma
+          {!data.hasData && <span className="text-amber-500 ml-2">(dados de demonstracao)</span>}
+        </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
@@ -33,9 +66,6 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="text-2xl font-extrabold text-dark">{k.value}</div>
-            <span className={`text-xs font-semibold ${k.up ? "text-accent" : "text-red-500"}`}>
-              {k.change} vs. mes anterior
-            </span>
           </div>
         ))}
       </div>
@@ -51,22 +81,22 @@ export default function AdminDashboard() {
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-xs text-slate-400 uppercase tracking-wider">
-                <th className="px-6 py-3">ID</th>
                 <th className="px-6 py-3">Sala</th>
                 <th className="px-6 py-3">Profissional</th>
                 <th className="px-6 py-3">Data</th>
                 <th className="px-6 py-3">Horario</th>
+                <th className="px-6 py-3">Valor</th>
                 <th className="px-6 py-3">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {reservas.map((r) => (
                 <tr key={r.id} className="hover:bg-slate-50">
-                  <td className="px-6 py-3 font-semibold text-dark">{r.id}</td>
-                  <td className="px-6 py-3">{r.sala}</td>
-                  <td className="px-6 py-3">{r.prof}</td>
+                  <td className="px-6 py-3 font-semibold text-dark">{r.sala?.nome}</td>
+                  <td className="px-6 py-3">{r.profile?.nome}</td>
                   <td className="px-6 py-3">{r.data}</td>
-                  <td className="px-6 py-3">{r.horario}</td>
+                  <td className="px-6 py-3">{r.hora_inicio}–{r.hora_fim}</td>
+                  <td className="px-6 py-3 font-semibold">R$ {Number(r.valor).toFixed(0)}</td>
                   <td className="px-6 py-3">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
                       r.status === "Confirmada" ? "bg-green-50 text-green-700"
