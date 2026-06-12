@@ -108,9 +108,9 @@ export default function SobrePage() {
             </div>
 
             <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 lg:p-12 text-center">
-              <h2 className="text-2xl font-extrabold text-dark mb-3">Desenvolvido pela FJN Tecnologia</h2>
+              <h2 className="text-2xl font-extrabold text-dark mb-3">Tecnologia e Inovacao</h2>
               <p className="text-slate-600 mb-6 max-w-lg mx-auto">
-                O ClinicHub e um produto da FJN Tecnologia, empresa especializada em solucoes digitais
+                O ClinicHub foi desenvolvido pela FJN Tecnologia, empresa especializada em solucoes digitais
                 para negocios de saude, beleza e bem-estar.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
