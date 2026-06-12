@@ -252,3 +252,31 @@ create policy "Admin envia mensagem" on public.mensagens_suporte
   for insert with check (
     exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
   );
+
+-- Storage: bucket para fotos de produtos
+insert into storage.buckets (id, name, public) values ('produtos', 'produtos', true);
+
+create policy "Qualquer um pode ver fotos de produtos"
+  on storage.objects for select
+  using (bucket_id = 'produtos');
+
+create policy "Admin faz upload de fotos"
+  on storage.objects for insert
+  with check (
+    bucket_id = 'produtos'
+    and exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );
+
+create policy "Admin deleta fotos"
+  on storage.objects for delete
+  using (
+    bucket_id = 'produtos'
+    and exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );
+
+create policy "Admin atualiza fotos"
+  on storage.objects for update
+  using (
+    bucket_id = 'produtos'
+    and exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );
