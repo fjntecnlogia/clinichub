@@ -79,14 +79,14 @@ export function Footer() {
 
           <div>
             <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">
-              Para Voce
+              Institucional
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/#como-funciona" className="hover:text-primary-light transition-colors">Sobre Nos</Link></li>
-              <li><Link href="/cadastro" className="hover:text-primary-light transition-colors">Cadastre-se</Link></li>
-              <li><Link href="/#economize" className="hover:text-primary-light transition-colors">Calcule sua Economia</Link></li>
-              <li><Link href="/#depoimentos" className="hover:text-primary-light transition-colors">Depoimentos</Link></li>
-              <li><Link href="/#reservar" className="hover:text-primary-light transition-colors">Reservar Sala</Link></li>
+              <li><Link href="/sobre" className="hover:text-primary-light transition-colors">Sobre Nos</Link></li>
+              <li><Link href="/contato" className="hover:text-primary-light transition-colors">Contato</Link></li>
+              <li><Link href="/termos" className="hover:text-primary-light transition-colors">Termos de Uso</Link></li>
+              <li><Link href="/privacidade" className="hover:text-primary-light transition-colors">Politica de Privacidade</Link></li>
+              <li><a href="https://fjntecnologia.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary-light transition-colors">FJN Tecnologia</a></li>
             </ul>
           </div>
 
@@ -107,7 +107,8 @@ export function Footer() {
                   contato@clinichub.com.br
                 </a>
               </li>
-              <li><a href="https://fjntecnologia.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary-light transition-colors">FJN Tecnologia</a></li>
+              <li><Link href="/cadastro" className="hover:text-primary-light transition-colors">Cadastre-se</Link></li>
+              <li><Link href="/login" className="hover:text-primary-light transition-colors">Entrar</Link></li>
             </ul>
           </div>
         </div>
