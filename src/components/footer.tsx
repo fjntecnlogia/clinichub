@@ -82,6 +82,7 @@ export function Footer() {
               Para Voce
             </h4>
             <ul className="space-y-2.5 text-sm">
+              <li><Link href="/#como-funciona" className="hover:text-primary-light transition-colors">Sobre Nos</Link></li>
               <li><Link href="/cadastro" className="hover:text-primary-light transition-colors">Cadastre-se</Link></li>
               <li><Link href="/#economize" className="hover:text-primary-light transition-colors">Calcule sua Economia</Link></li>
               <li><Link href="/#depoimentos" className="hover:text-primary-light transition-colors">Depoimentos</Link></li>
