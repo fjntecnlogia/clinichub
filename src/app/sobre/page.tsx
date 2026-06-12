@@ -108,18 +108,17 @@ export default function SobrePage() {
             </div>
 
             <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 lg:p-12 text-center">
-              <h2 className="text-2xl font-extrabold text-dark mb-3">Tecnologia e Inovacao</h2>
+              <h2 className="text-2xl font-extrabold text-dark mb-3">Pronto para comecar?</h2>
               <p className="text-slate-600 mb-6 max-w-lg mx-auto">
-                O ClinicHub foi desenvolvido pela FJN Tecnologia, empresa especializada em solucoes digitais
-                para negocios de saude, beleza e bem-estar.
+                Encontre a sala ideal para seus atendimentos e comece a atender seus pacientes em um espaco de qualidade.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link href="/#pacotes" className="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-colors">
                   Ver Pacotes
                 </Link>
-                <a href="https://fjntecnologia.com" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white hover:bg-slate-50 text-dark font-bold rounded-lg border border-slate-200 transition-colors">
-                  Conhecer a FJN
-                </a>
+                <Link href="/contato" className="px-6 py-3 bg-white hover:bg-slate-50 text-dark font-bold rounded-lg border border-slate-200 transition-colors">
+                  Fale Conosco
+                </Link>
               </div>
             </div>
           </div>
