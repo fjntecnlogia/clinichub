@@ -1,6 +1,6 @@
 export function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-dark via-dark-2 to-primary-dark overflow-hidden">
+    <section id="inicio" className="relative bg-gradient-to-br from-dark via-dark-2 to-primary-dark overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(8,145,178,0.12),transparent_60%),radial-gradient(circle_at_80%_20%,rgba(245,158,11,0.06),transparent_50%)]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
