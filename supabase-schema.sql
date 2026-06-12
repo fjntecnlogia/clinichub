@@ -153,6 +153,39 @@ create policy "Admin gerencia pedidos" on public.pedidos
     exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
   );
 
+-- Assinaturas de planos
+create table public.assinaturas (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.profiles on delete cascade not null,
+  plano text not null check (plano in ('avulso', 'turno', 'integral')),
+  status text not null default 'ativa' check (status in ('ativa', 'cancelada', 'expirada')),
+  valor numeric(10,2) not null,
+  inicio timestamptz not null default now(),
+  renovacao timestamptz,
+  created_at timestamptz default now()
+);
+
+alter table public.assinaturas enable row level security;
+
+create policy "Usuario ve proprias assinaturas" on public.assinaturas
+  for select using (auth.uid() = user_id);
+
+create policy "Usuario cria assinatura" on public.assinaturas
+  for insert with check (auth.uid() = user_id);
+
+create policy "Usuario atualiza propria assinatura" on public.assinaturas
+  for update using (auth.uid() = user_id);
+
+create policy "Admin ve todas assinaturas" on public.assinaturas
+  for select using (
+    exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );
+
+create policy "Admin gerencia assinaturas" on public.assinaturas
+  for all using (
+    exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );
+
 -- Conversas de suporte (chat)
 create table public.conversas_suporte (
   id uuid default gen_random_uuid() primary key,
