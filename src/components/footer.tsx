@@ -74,6 +74,7 @@ export function Footer() {
               <li><Link href="/#como-funciona" className="hover:text-primary-light transition-colors">Como Funciona</Link></li>
               <li><Link href="/#pacotes" className="hover:text-primary-light transition-colors">Pacotes</Link></li>
               <li><Link href="/loja" className="hover:text-primary-light transition-colors">Loja</Link></li>
+              <li><Link href="/admin" className="hover:text-primary-light transition-colors">Painel Admin</Link></li>
             </ul>
           </div>
 
@@ -86,7 +87,6 @@ export function Footer() {
               <li><Link href="/contato" className="hover:text-primary-light transition-colors">Contato</Link></li>
               <li><Link href="/termos" className="hover:text-primary-light transition-colors">Termos de Uso</Link></li>
               <li><Link href="/privacidade" className="hover:text-primary-light transition-colors">Politica de Privacidade</Link></li>
-              <li><a href="https://fjntecnologia.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary-light transition-colors">FJN Tecnologia</a></li>
             </ul>
           </div>
 

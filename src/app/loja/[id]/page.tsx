@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { useCart } from "@/lib/cart-context";
 
 interface Produto {
   id: string;
@@ -20,9 +21,11 @@ interface Produto {
 
 export default function ProductPage() {
   const { id } = useParams();
+  const { addItem, totalItems } = useCart();
   const [product, setProduct] = useState<Produto | null>(null);
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState(1);
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -42,6 +45,19 @@ export default function ProductPage() {
     }
     load();
   }, [id]);
+
+  function handleAddToCart() {
+    if (!product || product.estoque === 0) return;
+    addItem({
+      id: product.id,
+      slug: product.slug,
+      nome: product.nome,
+      preco: Number(product.preco),
+      foto_url: product.foto_url,
+    }, qty);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  }
 
   if (loading) {
     return (
@@ -97,6 +113,11 @@ export default function ProductPage() {
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
           </Link>
         </div>
       </header>
@@ -138,10 +159,15 @@ export default function ProductPage() {
                 <button onClick={() => setQty(Math.min(product.estoque, qty + 1))} className="px-3 py-2 text-slate-500 hover:text-dark">+</button>
               </div>
               <button
+                onClick={handleAddToCart}
                 disabled={product.estoque === 0}
-                className="flex-1 py-3 bg-primary hover:bg-primary-dark disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold rounded-lg transition-colors text-sm"
+                className={`flex-1 py-3 font-bold rounded-lg transition-colors text-sm ${
+                  added
+                    ? "bg-green-500 text-white"
+                    : "bg-primary hover:bg-primary-dark disabled:bg-slate-300 disabled:cursor-not-allowed text-white"
+                }`}
               >
-                Adicionar ao Carrinho
+                {added ? "Adicionado ao Carrinho!" : "Adicionar ao Carrinho"}
               </button>
             </div>
 

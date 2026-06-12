@@ -152,3 +152,70 @@ create policy "Admin gerencia pedidos" on public.pedidos
   for all using (
     exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
   );
+
+-- Conversas de suporte (chat)
+create table public.conversas_suporte (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.profiles on delete set null,
+  nome_visitante text,
+  email_visitante text,
+  assunto text not null default 'Duvida geral',
+  status text not null default 'aberta' check (status in ('aberta', 'fechada')),
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+alter table public.conversas_suporte enable row level security;
+
+create policy "Usuario ve proprias conversas" on public.conversas_suporte
+  for select using (auth.uid() = user_id);
+
+create policy "Usuario cria conversa" on public.conversas_suporte
+  for insert with check (auth.uid() = user_id or user_id is null);
+
+create policy "Admin ve todas conversas" on public.conversas_suporte
+  for select using (
+    exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );
+
+create policy "Admin gerencia conversas" on public.conversas_suporte
+  for all using (
+    exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );
+
+-- Mensagens de suporte
+create table public.mensagens_suporte (
+  id uuid default gen_random_uuid() primary key,
+  conversa_id uuid references public.conversas_suporte on delete cascade not null,
+  remetente text not null check (remetente in ('usuario', 'suporte')),
+  texto text not null,
+  created_at timestamptz default now()
+);
+
+alter table public.mensagens_suporte enable row level security;
+
+create policy "Participante ve mensagens" on public.mensagens_suporte
+  for select using (
+    exists (
+      select 1 from public.conversas_suporte c
+      where c.id = conversa_id and (c.user_id = auth.uid() or c.user_id is null)
+    )
+  );
+
+create policy "Participante envia mensagem" on public.mensagens_suporte
+  for insert with check (
+    exists (
+      select 1 from public.conversas_suporte c
+      where c.id = conversa_id and (c.user_id = auth.uid() or c.user_id is null)
+    )
+  );
+
+create policy "Admin ve todas mensagens" on public.mensagens_suporte
+  for select using (
+    exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );
+
+create policy "Admin envia mensagem" on public.mensagens_suporte
+  for insert with check (
+    exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );

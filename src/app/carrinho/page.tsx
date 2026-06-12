@@ -2,24 +2,77 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
-const initialItems = [
-  { id: 1, nome: "Jaleco Premium Branco", tam: "M", preco: 189.9, qty: 1, img: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=100&h=100&fit=crop" },
-  { id: 2, nome: "Kit Curativos Estereis (50 un)", preco: 45.9, qty: 2, img: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=100&h=100&fit=crop" },
-  { id: 3, nome: "Luvas Nitrilo (cx 100)", preco: 54.9, qty: 1, img: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=100&h=100&fit=crop" },
-];
+import { useCart } from "@/lib/cart-context";
 
 export default function CarrinhoPage() {
-  const [items, setItems] = useState(initialItems);
+  const { items, updateQty, removeItem, subtotal, totalItems } = useCart();
+  const [cep, setCep] = useState("");
+  const [frete, setFrete] = useState<{ nome: string; preco: number; prazo: number } | null>(null);
+  const [freteLoading, setFreteLoading] = useState(false);
+  const [freteError, setFreteError] = useState("");
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
-  const updateQty = (id: number, d: number) =>
-    setItems((prev) => prev.map((i) => (i.id === id ? { ...i, qty: Math.max(1, i.qty + d) } : i)));
+  async function calcularFrete() {
+    const cepClean = cep.replace(/\D/g, "");
+    if (cepClean.length !== 8) {
+      setFreteError("CEP invalido");
+      return;
+    }
+    setFreteLoading(true);
+    setFreteError("");
+    try {
+      const res = await fetch("/api/shipping", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cep: cepClean,
+          items: items.map((i) => ({ qty: i.qty, preco: i.preco })),
+        }),
+      });
+      const data = await res.json();
+      if (data.error) {
+        setFreteError(data.error);
+      } else {
+        setFrete(data);
+      }
+    } catch {
+      setFreteError("Erro ao calcular frete");
+    }
+    setFreteLoading(false);
+  }
 
-  const remove = (id: number) => setItems((prev) => prev.filter((i) => i.id !== id));
+  async function handleCheckout() {
+    if (items.length === 0) return;
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((i) => ({
+            id: i.id,
+            nome: i.nome,
+            preco: i.preco,
+            qty: i.qty,
+            foto_url: i.foto_url,
+          })),
+          frete: frete?.preco ?? 0,
+        }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || "Erro ao iniciar pagamento");
+      }
+    } catch {
+      alert("Erro ao conectar com o servidor");
+    }
+    setCheckoutLoading(false);
+  }
 
-  const subtotal = items.reduce((s, i) => s + i.preco * i.qty, 0);
-  const frete = subtotal >= 299 ? 0 : 29.9;
-  const total = subtotal + frete;
+  const freteValor = frete?.preco ?? (subtotal >= 299 ? 0 : null);
+  const total = subtotal + (freteValor ?? 0);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -39,26 +92,33 @@ export default function CarrinhoPage() {
       </header>
 
       <div className="max-w-5xl mx-auto px-6 py-8">
-        <h1 className="text-2xl font-extrabold text-dark mb-6">Carrinho ({items.length} {items.length === 1 ? "item" : "itens"})</h1>
+        <h1 className="text-2xl font-extrabold text-dark mb-6">
+          Carrinho ({totalItems} {totalItems === 1 ? "item" : "itens"})
+        </h1>
 
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-4">
             {items.map((item) => (
               <div key={item.id} className="bg-white rounded-xl border border-slate-200 p-4 flex gap-4">
-                <img src={item.img} alt={item.nome} className="w-20 h-20 rounded-lg object-cover shrink-0" />
+                <img
+                  src={item.foto_url || "https://placehold.co/100x100/e2e8f0/94a3b8?text=..."}
+                  alt={item.nome}
+                  className="w-20 h-20 rounded-lg object-cover shrink-0"
+                />
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-dark text-sm">{item.nome}</h3>
-                  {item.tam && <span className="text-xs text-slate-400">Tamanho: {item.tam}</span>}
+                  <Link href={`/loja/${item.slug}`} className="font-bold text-dark text-sm hover:text-primary transition-colors">
+                    {item.nome}
+                  </Link>
                   <div className="flex items-center justify-between mt-3">
                     <div className="flex items-center border border-slate-200 rounded-lg">
-                      <button onClick={() => updateQty(item.id, -1)} className="px-2.5 py-1.5 text-slate-500 hover:text-dark text-sm">-</button>
+                      <button onClick={() => updateQty(item.id, item.qty - 1)} className="px-2.5 py-1.5 text-slate-500 hover:text-dark text-sm">-</button>
                       <span className="px-2.5 py-1.5 font-bold text-dark text-sm">{item.qty}</span>
-                      <button onClick={() => updateQty(item.id, 1)} className="px-2.5 py-1.5 text-slate-500 hover:text-dark text-sm">+</button>
+                      <button onClick={() => updateQty(item.id, item.qty + 1)} className="px-2.5 py-1.5 text-slate-500 hover:text-dark text-sm">+</button>
                     </div>
                     <span className="font-extrabold text-primary">R$ {(item.preco * item.qty).toFixed(2)}</span>
                   </div>
                 </div>
-                <button onClick={() => remove(item.id)} className="text-slate-400 hover:text-red-500 transition-colors self-start">
+                <button onClick={() => removeItem(item.id)} className="text-slate-400 hover:text-red-500 transition-colors self-start">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -74,7 +134,46 @@ export default function CarrinhoPage() {
             )}
           </div>
 
-          <div>
+          <div className="space-y-4">
+            {/* Calcular frete */}
+            <div className="bg-white rounded-xl border border-slate-200 p-5">
+              <h3 className="font-bold text-dark mb-3 text-sm">Calcular frete</h3>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={cep}
+                  onChange={(e) => {
+                    let v = e.target.value.replace(/\D/g, "");
+                    if (v.length > 5) v = v.slice(0, 5) + "-" + v.slice(5, 8);
+                    setCep(v);
+                  }}
+                  maxLength={9}
+                  placeholder="00000-000"
+                  className="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                />
+                <button
+                  onClick={calcularFrete}
+                  disabled={freteLoading || items.length === 0}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 text-dark font-semibold rounded-lg text-sm transition-colors"
+                >
+                  {freteLoading ? "..." : "Calcular"}
+                </button>
+              </div>
+              {freteError && <p className="text-red-500 text-xs mt-2">{freteError}</p>}
+              {frete && (
+                <div className="mt-3 p-3 bg-green-50 rounded-lg">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-green-700 font-medium">{frete.nome}</span>
+                    <span className="font-bold text-green-700">
+                      {frete.preco === 0 ? "Gratis" : `R$ ${frete.preco.toFixed(2)}`}
+                    </span>
+                  </div>
+                  <p className="text-xs text-green-600 mt-1">Entrega em ate {frete.prazo} dias uteis</p>
+                </div>
+              )}
+            </div>
+
+            {/* Resumo */}
             <div className="bg-white rounded-xl border border-slate-200 p-6 sticky top-24">
               <h3 className="font-bold text-dark mb-4">Resumo</h3>
               <div className="space-y-3 text-sm mb-4">
@@ -84,11 +183,15 @@ export default function CarrinhoPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">Frete</span>
-                  <span className={`font-medium ${frete === 0 ? "text-accent" : ""}`}>
-                    {frete === 0 ? "Gratis" : `R$ ${frete.toFixed(2)}`}
+                  <span className={`font-medium ${freteValor === 0 ? "text-green-600" : ""}`}>
+                    {freteValor === null
+                      ? "Calcular acima"
+                      : freteValor === 0
+                        ? "Gratis"
+                        : `R$ ${freteValor.toFixed(2)}`}
                   </span>
                 </div>
-                {frete > 0 && (
+                {subtotal > 0 && subtotal < 299 && !frete && (
                   <p className="text-xs text-slate-400">Frete gratis acima de R$ 299,00</p>
                 )}
               </div>
@@ -96,10 +199,19 @@ export default function CarrinhoPage() {
                 <span className="font-bold text-dark">Total</span>
                 <span className="text-xl font-extrabold text-primary">R$ {total.toFixed(2)}</span>
               </div>
-              <button className="w-full py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-colors text-sm">
-                Finalizar Compra
+              <button
+                onClick={handleCheckout}
+                disabled={items.length === 0 || checkoutLoading}
+                className="w-full py-3 bg-primary hover:bg-primary-dark disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold rounded-lg transition-colors text-sm"
+              >
+                {checkoutLoading ? "Processando..." : "Finalizar Compra"}
               </button>
-              <p className="text-[10px] text-slate-400 text-center mt-3">Pagamento seguro via Stripe</p>
+              <div className="flex items-center justify-center gap-2 mt-3">
+                <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+                <p className="text-[10px] text-slate-400">Pagamento seguro via Stripe (Pix ou Cartao)</p>
+              </div>
             </div>
           </div>
         </div>

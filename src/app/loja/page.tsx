@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { CartBadge } from "@/components/cart-badge";
 
 const mockProdutos = [
   { id: "1", slug: "jaleco-premium-branco", nome: "Jaleco Premium Branco", categoria: "Jalecos", preco: 189.9, preco_antigo: 229.9, foto_url: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=400&h=400&fit=crop", badge: "Mais vendido" },
@@ -47,11 +48,7 @@ export default async function LojaPage({ searchParams }: { searchParams: Promise
             <span className="font-extrabold text-dark">Clinic<span className="text-primary">Hub</span> <span className="text-xs font-medium text-slate-400 ml-1">Loja</span></span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/carrinho" className="relative p-2 text-slate-600 hover:text-primary transition-colors">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-            </Link>
+            <CartBadge />
             <Link href="/login" className="text-sm font-semibold text-primary hover:text-primary-dark">Entrar</Link>
           </div>
         </div>
