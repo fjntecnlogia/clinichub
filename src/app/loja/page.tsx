@@ -28,8 +28,15 @@ async function getProdutos() {
   }
 }
 
-export default async function LojaPage() {
+export default async function LojaPage({ searchParams }: { searchParams: Promise<{ categoria?: string }> }) {
   const produtos = await getProdutos();
+  const params = await searchParams;
+  const categoriaAtiva = params.categoria || "Todos";
+
+  const categorias = ["Todos", ...Array.from(new Set(produtos.map((p: { categoria: string }) => p.categoria)))];
+  const produtosFiltrados = categoriaAtiva === "Todos"
+    ? produtos
+    : produtos.filter((p: { categoria: string }) => p.categoria === categoriaAtiva);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -53,24 +60,25 @@ export default async function LojaPage() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-extrabold text-dark">Loja</h1>
-          <p className="text-slate-500 mt-1">Equipamentos, materiais e roupas para profissionais de saude</p>
+          <p className="text-slate-500 mt-1">Equipamentos, materiais e acessorios para profissionais de saude</p>
         </div>
 
         <div className="flex flex-wrap gap-2 mb-8">
-          {["Todos", "Equipamentos", "Materiais", "Jalecos", "Roupas", "Mobiliario"].map((c) => (
-            <button
+          {categorias.map((c) => (
+            <Link
               key={c}
+              href={c === "Todos" ? "/loja" : `/loja?categoria=${encodeURIComponent(c)}`}
               className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors ${
-                c === "Todos" ? "bg-primary text-white" : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
+                c === categoriaAtiva ? "bg-primary text-white" : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50"
               }`}
             >
               {c}
-            </button>
+            </Link>
           ))}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {produtos.map((p) => (
+          {produtosFiltrados.map((p) => (
             <Link key={p.id} href={`/loja/${p.slug}`} className="group bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all">
               <div className="relative aspect-square bg-slate-100">
                 <img src={p.foto_url || "https://placehold.co/400x400/e2e8f0/94a3b8?text=Produto"} alt={p.nome} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
