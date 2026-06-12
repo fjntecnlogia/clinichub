@@ -1,46 +1,87 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
-const allProducts: Record<string, { nome: string; cat: string; preco: number; precoAntigo?: number; desc: string; imgs: string[]; specs: { k: string; v: string }[] }> = {
-  "jaleco-premium-branco": {
-    nome: "Jaleco Premium Branco",
-    cat: "Jalecos",
-    preco: 189.9,
-    precoAntigo: 229.9,
-    desc: "Jaleco profissional confeccionado em tecido Oxford Premium com tratamento antimicrobiano. Modelagem ergonomica, botoes resistentes e bolsos funcionais. Ideal para consultorios e clinicas.",
-    imgs: [
-      "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=600&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=600&fit=crop",
-    ],
-    specs: [
-      { k: "Material", v: "Oxford Premium" },
-      { k: "Tratamento", v: "Antimicrobiano" },
-      { k: "Tamanhos", v: "PP ao GG" },
-      { k: "Cor", v: "Branco" },
-    ],
-  },
-};
-
-const fallback = {
-  nome: "Produto",
-  cat: "Geral",
-  preco: 99.9,
-  desc: "Descricao detalhada do produto. Material de alta qualidade, ideal para profissionais de saude que buscam excelencia.",
-  imgs: ["https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=600&fit=crop"],
-  specs: [
-    { k: "Material", v: "Premium" },
-    { k: "Garantia", v: "12 meses" },
-  ],
-};
+interface Produto {
+  id: string;
+  slug: string;
+  nome: string;
+  categoria: string;
+  descricao: string | null;
+  preco: number;
+  preco_antigo: number | null;
+  estoque: number;
+  foto_url: string | null;
+  specs: { k: string; v: string }[] | null;
+}
 
 export default function ProductPage() {
   const { id } = useParams();
-  const product = allProducts[id as string] || fallback;
+  const [product, setProduct] = useState<Produto | null>(null);
+  const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState(1);
-  const [imgIdx, setImgIdx] = useState(0);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("produtos")
+          .select("*")
+          .eq("slug", id as string)
+          .single();
+
+        if (!error && data) {
+          setProduct(data);
+        }
+      } catch { /* fallback below */ }
+      setLoading(false);
+    }
+    load();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <header className="bg-white border-b border-slate-200 sticky top-0 z-30">
+          <div className="max-w-7xl mx-auto px-6 py-4">
+            <Link href="/loja" className="flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+              Voltar para a loja
+            </Link>
+          </div>
+        </header>
+        <div className="max-w-7xl mx-auto px-6 py-20 text-center">
+          <h1 className="text-2xl font-extrabold text-dark mb-2">Produto nao encontrado</h1>
+          <p className="text-slate-500 mb-6">O produto que voce procura nao existe ou foi removido.</p>
+          <Link href="/loja" className="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-dark transition-colors">
+            Ver todos os produtos
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const imgUrl = product.foto_url || "https://placehold.co/600x600/e2e8f0/94a3b8?text=Produto";
+  const specs = Array.isArray(product.specs) && product.specs.length > 0
+    ? product.specs
+    : [
+        { k: "Categoria", v: product.categoria },
+        { k: "Estoque", v: `${product.estoque} unidades` },
+      ];
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -63,45 +104,43 @@ export default function ProductPage() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid lg:grid-cols-2 gap-10">
           <div>
-            <div className="bg-white rounded-xl border border-slate-200 overflow-hidden aspect-square mb-3">
-              <img src={product.imgs[imgIdx]} alt={product.nome} className="w-full h-full object-cover" />
+            <div className="bg-white rounded-xl border border-slate-200 overflow-hidden aspect-square">
+              <img src={imgUrl} alt={product.nome} className="w-full h-full object-cover" />
             </div>
-            {product.imgs.length > 1 && (
-              <div className="flex gap-3">
-                {product.imgs.map((img, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setImgIdx(i)}
-                    className={`w-20 h-20 rounded-lg border-2 overflow-hidden ${
-                      i === imgIdx ? "border-primary" : "border-slate-200"
-                    }`}
-                  >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           <div>
-            <span className="text-xs font-semibold text-primary bg-primary-bg px-3 py-1 rounded-full">{product.cat}</span>
+            <span className="text-xs font-semibold text-primary bg-primary-bg px-3 py-1 rounded-full">{product.categoria}</span>
             <h1 className="text-3xl font-extrabold text-dark mt-3 mb-2">{product.nome}</h1>
-            <p className="text-slate-500 leading-relaxed mb-6">{product.desc}</p>
+            {product.descricao && (
+              <p className="text-slate-500 leading-relaxed mb-6">{product.descricao}</p>
+            )}
 
-            <div className="flex items-baseline gap-3 mb-6">
-              <span className="text-3xl font-extrabold text-primary">R$ {product.preco.toFixed(2)}</span>
-              {product.precoAntigo && (
-                <span className="text-lg text-slate-400 line-through">R$ {product.precoAntigo.toFixed(2)}</span>
+            <div className="flex items-baseline gap-3 mb-2">
+              <span className="text-3xl font-extrabold text-primary">R$ {Number(product.preco).toFixed(2)}</span>
+              {product.preco_antigo && (
+                <span className="text-lg text-slate-400 line-through">R$ {Number(product.preco_antigo).toFixed(2)}</span>
               )}
             </div>
+
+            <p className="text-sm text-slate-400 mb-6">
+              {product.estoque > 0 ? (
+                <span className="text-green-600 font-medium">Em estoque ({product.estoque} disponiveis)</span>
+              ) : (
+                <span className="text-red-500 font-medium">Fora de estoque</span>
+              )}
+            </p>
 
             <div className="flex items-center gap-4 mb-6">
               <div className="flex items-center border border-slate-200 rounded-lg">
                 <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-3 py-2 text-slate-500 hover:text-dark">-</button>
                 <span className="px-3 py-2 font-bold text-dark min-w-[2rem] text-center">{qty}</span>
-                <button onClick={() => setQty(qty + 1)} className="px-3 py-2 text-slate-500 hover:text-dark">+</button>
+                <button onClick={() => setQty(Math.min(product.estoque, qty + 1))} className="px-3 py-2 text-slate-500 hover:text-dark">+</button>
               </div>
-              <button className="flex-1 py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-colors text-sm">
+              <button
+                disabled={product.estoque === 0}
+                className="flex-1 py-3 bg-primary hover:bg-primary-dark disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold rounded-lg transition-colors text-sm"
+              >
                 Adicionar ao Carrinho
               </button>
             </div>
@@ -109,7 +148,7 @@ export default function ProductPage() {
             <div className="bg-white rounded-xl border border-slate-200 p-5">
               <h3 className="font-bold text-dark mb-3">Especificacoes</h3>
               <div className="space-y-2">
-                {product.specs.map((s) => (
+                {specs.map((s) => (
                   <div key={s.k} className="flex justify-between text-sm">
                     <span className="text-slate-500">{s.k}</span>
                     <span className="font-medium text-dark">{s.v}</span>
