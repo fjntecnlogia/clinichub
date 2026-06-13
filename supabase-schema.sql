@@ -280,3 +280,56 @@ create policy "Admin atualiza fotos"
     bucket_id = 'produtos'
     and exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
   );
+
+-- =============================================
+-- UPGRADE E-COMMERCE v2
+-- =============================================
+
+-- Categorias dinamicas
+create table public.categorias (
+  id uuid default gen_random_uuid() primary key,
+  nome text not null,
+  slug text unique not null,
+  descricao text,
+  cor text default '#1D4ED8',
+  icone text default '📦',
+  ativo boolean default true,
+  ordem integer default 0,
+  created_at timestamptz default now()
+);
+
+alter table public.categorias enable row level security;
+
+create policy "Categorias visiveis para todos" on public.categorias
+  for select using (true);
+
+create policy "Admin gerencia categorias" on public.categorias
+  for all using (
+    exists (select 1 from public.profiles where id = auth.uid() and tipo = 'admin')
+  );
+
+-- Seed categorias iniciais
+insert into public.categorias (nome, slug, icone, cor, ordem) values
+  ('Equipamentos', 'equipamentos', '🔧', '#1D4ED8', 1),
+  ('Vestuario', 'vestuario', '👔', '#7C3AED', 2),
+  ('Descartaveis', 'descartaveis', '🧤', '#059669', 3),
+  ('Mobiliario', 'mobiliario', '🪑', '#D97706', 4),
+  ('Tecnologia', 'tecnologia', '💻', '#2563EB', 5),
+  ('Higiene', 'higiene', '🧴', '#0891B2', 6),
+  ('Outro', 'outro', '📦', '#6B7280', 7);
+
+-- Novos campos em produtos
+alter table public.produtos
+  add column if not exists sku text,
+  add column if not exists marca text,
+  add column if not exists peso numeric(8,3),
+  add column if not exists descricao_curta text,
+  add column if not exists destaque boolean default false,
+  add column if not exists tags text[] default '{}';
+
+-- Novos campos em pedidos
+alter table public.pedidos
+  add column if not exists endereco jsonb,
+  add column if not exists metodo_pagamento text,
+  add column if not exists notas text,
+  add column if not exists updated_at timestamptz default now();
