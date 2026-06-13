@@ -19,13 +19,13 @@ export default function TermosPage() {
           <div className="max-w-3xl mx-auto px-6 prose prose-slate prose-headings:text-dark prose-headings:font-extrabold prose-a:text-primary">
             <h2 className="text-xl font-extrabold text-dark mt-0">1. Aceitacao dos Termos</h2>
             <p className="text-slate-600 leading-relaxed mb-6">
-              Ao acessar e utilizar a plataforma ClinicHub, voce concorda com estes Termos de Uso.
+              Ao acessar e utilizar a plataforma MaciHub, voce concorda com estes Termos de Uso.
               Se voce nao concordar com algum dos termos, nao utilize a plataforma.
             </p>
 
             <h2 className="text-xl font-extrabold text-dark">2. Descricao do Servico</h2>
             <p className="text-slate-600 leading-relaxed mb-6">
-              O ClinicHub e uma plataforma digital que conecta profissionais de saude a espacos clinicos
+              O MaciHub e uma plataforma digital que conecta profissionais de saude a espacos clinicos
               disponíveis para locacao por hora, turno ou mes. A plataforma oferece tambem um e-commerce
               de equipamentos e materiais medicos.
             </p>
@@ -54,26 +54,26 @@ export default function TermosPage() {
             <h2 className="text-xl font-extrabold text-dark">6. Propriedade Intelectual</h2>
             <p className="text-slate-600 leading-relaxed mb-6">
               Todo o conteudo da plataforma, incluindo marca, logotipos, textos e imagens, e de propriedade
-              do ClinicHub ou de seus licenciadores. E proibida a reproducao sem autorizacao previa.
+              do MaciHub ou de seus licenciadores. E proibida a reproducao sem autorizacao previa.
             </p>
 
             <h2 className="text-xl font-extrabold text-dark">7. Limitacao de Responsabilidade</h2>
             <p className="text-slate-600 leading-relaxed mb-6">
-              O ClinicHub nao se responsabiliza por: interrupcoes temporarias do servico, atos de terceiros
+              O MaciHub nao se responsabiliza por: interrupcoes temporarias do servico, atos de terceiros
               nas dependencias, perdas ou danos indiretos decorrentes do uso da plataforma.
             </p>
 
             <h2 className="text-xl font-extrabold text-dark">8. Modificacoes</h2>
             <p className="text-slate-600 leading-relaxed mb-6">
-              O ClinicHub reserva-se o direito de modificar estes termos a qualquer momento.
+              O MaciHub reserva-se o direito de modificar estes termos a qualquer momento.
               As alteracoes serao comunicadas pela plataforma e entrarao em vigor na data da publicacao.
             </p>
 
             <h2 className="text-xl font-extrabold text-dark">9. Contato</h2>
             <p className="text-slate-600 leading-relaxed">
               Em caso de duvidas sobre estes termos, entre em contato pelo e-mail{" "}
-              <a href="mailto:contato@clinichub.com.br" className="text-primary hover:text-primary-dark font-medium">
-                contato@clinichub.com.br
+              <a href="mailto:contato@macihub.com.br" className="text-primary hover:text-primary-dark font-medium">
+                contato@macihub.com.br
               </a>.
             </p>
           </div>

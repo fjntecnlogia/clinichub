@@ -10,7 +10,7 @@ export default function SobrePage() {
         <section className="bg-gradient-to-br from-dark via-dark-2 to-primary-dark py-20">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h1 className="text-4xl sm:text-5xl font-black text-white mb-4">
-              Sobre o <span className="text-primary-light">ClinicHub</span>
+              Sobre o <span className="text-primary-light">MaciHub</span>
             </h1>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
               Transformando a forma como profissionais de saude acessam infraestrutura de qualidade.
@@ -74,7 +74,7 @@ export default function SobrePage() {
             <div className="mb-20">
               <h2 className="text-3xl font-extrabold text-dark mb-4 text-center">Nossos Valores</h2>
               <p className="text-slate-500 text-center mb-10 max-w-xl mx-auto">
-                Os pilares que guiam tudo o que fazemos na ClinicHub.
+                Os pilares que guiam tudo o que fazemos na MaciHub.
               </p>
               <div className="grid sm:grid-cols-3 gap-6">
                 <div className="bg-slate-50 rounded-xl p-6 text-center">

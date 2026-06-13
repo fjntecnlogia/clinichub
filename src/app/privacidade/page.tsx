@@ -19,7 +19,7 @@ export default function PrivacidadePage() {
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="text-xl font-extrabold text-dark mt-0">1. Dados que Coletamos</h2>
             <p className="text-slate-600 leading-relaxed mb-6">
-              Coletamos as seguintes informacoes quando voce utiliza o ClinicHub: nome completo, e-mail,
+              Coletamos as seguintes informacoes quando voce utiliza o MaciHub: nome completo, e-mail,
               telefone, CPF/CNPJ, registro profissional (CRM, CRO, etc.), dados de pagamento e historico
               de reservas.
             </p>
@@ -78,8 +78,8 @@ export default function PrivacidadePage() {
             <p className="text-slate-600 leading-relaxed">
               Para exercer seus direitos ou esclarecer duvidas sobre privacidade, entre em contato com
               nosso Encarregado de Protecao de Dados pelo e-mail{" "}
-              <a href="mailto:privacidade@clinichub.com.br" className="text-primary hover:text-primary-dark font-medium">
-                privacidade@clinichub.com.br
+              <a href="mailto:privacidade@macihub.com.br" className="text-primary hover:text-primary-dark font-medium">
+                privacidade@macihub.com.br
               </a>.
             </p>
           </div>

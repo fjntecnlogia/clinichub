@@ -88,7 +88,7 @@ export function ChatWidget() {
       setConversaId(data.id);
       setStep("chat");
 
-      const autoMsg = `Ola ${nome.split(" ")[0]}! Bem-vindo ao suporte ClinicHub. Como podemos ajudar?`;
+      const autoMsg = `Ola ${nome.split(" ")[0]}! Bem-vindo ao suporte MaciHub. Como podemos ajudar?`;
       await supabase.from("mensagens_suporte").insert({
         conversa_id: data.id,
         remetente: "suporte",
@@ -141,10 +141,10 @@ export function ChatWidget() {
           {/* Header */}
           <div className="bg-primary px-5 py-4 flex items-center gap-3">
             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-sm">
-              CH
+              MH
             </div>
             <div>
-              <div className="text-white font-bold text-sm">Suporte ClinicHub</div>
+              <div className="text-white font-bold text-sm">Suporte MaciHub</div>
               <div className="text-white/70 text-xs">Tempo medio de resposta: 5 min</div>
             </div>
           </div>

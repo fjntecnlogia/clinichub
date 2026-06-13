@@ -36,10 +36,10 @@ export default function PainelLayout({ children }: { children: React.ReactNode }
         <div className="px-6 py-5 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white font-extrabold text-sm">
-              CH
+              MH
             </div>
             <div>
-              <span className="font-extrabold text-dark text-sm">ClinicHub</span>
+              <span className="font-extrabold text-dark text-sm">MaciHub</span>
               <span className="block text-[10px] text-slate-400 -mt-0.5">Meu Painel</span>
             </div>
           </Link>

@@ -8,10 +8,10 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-extrabold text-xs">
-                CH
+                MH
               </div>
               <span className="text-base font-extrabold text-white tracking-tight">
-                Clinic<span className="text-primary-light">Hub</span>
+                Maci<span className="text-primary-light">Hub</span>
               </span>
             </Link>
             <p className="text-sm leading-relaxed mb-5">
@@ -102,9 +102,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:contato@clinichub.com.br" className="hover:text-primary-light transition-colors flex items-center gap-1.5">
+                <a href="mailto:contato@macihub.com.br" className="hover:text-primary-light transition-colors flex items-center gap-1.5">
                   <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-                  contato@clinichub.com.br
+                  contato@macihub.com.br
                 </a>
               </li>
               <li><Link href="/cadastro" className="hover:text-primary-light transition-colors">Cadastre-se</Link></li>
@@ -114,7 +114,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/5 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>&copy; 2026 ClinicHub. Todos os direitos reservados.</p>
+          <p>&copy; 2026 MaciHub. Todos os direitos reservados.</p>
           <p>
             Desenvolvido por{" "}
             <a href="https://fjntecnologia.com" target="_blank" rel="noopener noreferrer" className="text-primary-light hover:text-primary font-medium">

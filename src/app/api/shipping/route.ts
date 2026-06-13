@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${MELHOR_ENVIO_TOKEN}`,
         Accept: "application/json",
-        "User-Agent": "ClinicHub (fjntecnologia2022@gmail.com)",
+        "User-Agent": "MaciHub (fjntecnologia2022@gmail.com)",
       },
       body: JSON.stringify(body),
     });

@@ -41,7 +41,7 @@ export default function ContatoPage() {
                     </div>
                   </a>
 
-                  <a href="mailto:contato@clinichub.com.br" className="flex items-center gap-4 p-4 bg-primary/5 rounded-xl border border-primary/10 hover:border-primary/20 transition-colors group">
+                  <a href="mailto:contato@macihub.com.br" className="flex items-center gap-4 p-4 bg-primary/5 rounded-xl border border-primary/10 hover:border-primary/20 transition-colors group">
                     <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center shrink-0">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
@@ -49,7 +49,7 @@ export default function ContatoPage() {
                     </div>
                     <div>
                       <h3 className="font-bold text-dark group-hover:text-primary transition-colors">E-mail</h3>
-                      <p className="text-sm text-slate-500">contato@clinichub.com.br</p>
+                      <p className="text-sm text-slate-500">contato@macihub.com.br</p>
                     </div>
                   </a>
 
@@ -161,7 +161,7 @@ export default function ContatoPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Localizacao ClinicHub"
+                  title="Localizacao MaciHub"
                   className="w-full h-full"
                 />
               </div>

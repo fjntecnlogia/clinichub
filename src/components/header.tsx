@@ -24,10 +24,10 @@ export function Header() {
         <div className="flex items-center justify-between h-16 lg:h-18">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white font-extrabold text-sm">
-              CH
+              MH
             </div>
             <span className="text-lg font-extrabold tracking-tight text-dark">
-              Clinic<span className="text-primary">Hub</span>
+              Maci<span className="text-primary">Hub</span>
             </span>
           </Link>
 

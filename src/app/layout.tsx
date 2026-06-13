@@ -10,14 +10,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ClinicHub | Seu Espaco Profissional",
+  title: "MaciHub | Agendamento Odontologico",
   description:
-    "Alugue salas medicas e clinicas por hora, sem contrato. Plataforma completa para profissionais de saude.",
+    "Reserve cadeiras odontologicas por hora, sem contrato. Plataforma #1 para dentistas.",
   keywords: [
-    "aluguel sala medica",
-    "clinica por hora",
-    "consultorio compartilhado",
-    "coworking medico",
+    "agendamento odontologico",
+    "cadeira odontologica por hora",
+    "consultorio dentista",
+    "aluguel consultorio odontologico",
   ],
 };
 
