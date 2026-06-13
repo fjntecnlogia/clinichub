@@ -76,19 +76,31 @@ export function Hero() {
       </div>
 
       {/* Barra de urgência */}
-      <div className="bg-gradient-to-r from-secondary to-secondary-dark py-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-3 text-white">
-            <span className="text-2xl">🔥</span>
-            <p className="text-sm font-bold">
-              <span className="font-black">Alta demanda!</span> Restam poucas horas disponiveis para hoje.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 text-white/90">
-            <span className="text-lg">👥</span>
-            <p className="text-sm font-semibold">
-              +500 dentistas ja atendidos e faturando <strong>mais de R$ 10.000,00/mes</strong> com o MaciHub.
-            </p>
+      <div className="bg-slate-50 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 rounded-2xl border border-orange-200 p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center">
+                  <span className="text-xl">🔥</span>
+                </div>
+                <p className="text-sm text-dark">
+                  <span className="font-black">Alta demanda!</span> Restam poucas horas disponiveis para hoje.
+                </p>
+              </div>
+              <div className="flex items-center gap-3 ml-[52px]">
+                <span className="text-lg">👥</span>
+                <p className="text-sm text-slate-600">
+                  +500 dentistas ja atendidos e faturando <strong className="text-dark">mais de R$ 10.000,00/mes</strong> com o MaciHub.
+                </p>
+              </div>
+            </div>
+            <div className="hidden md:flex -space-x-3">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" className="w-12 h-12 rounded-full border-2 border-white object-cover" />
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="" className="w-12 h-12 rounded-full border-2 border-white object-cover" />
+              <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="" className="w-12 h-12 rounded-full border-2 border-white object-cover" />
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="" className="w-12 h-12 rounded-full border-2 border-white object-cover" />
+            </div>
           </div>
         </div>
       </div>
