@@ -21,3 +21,43 @@ body {
   background: #ffffff;
   color: #0F172A;
 }
+
+@keyframes btn-pulse-blue {
+  0%, 100% { box-shadow: 0 10px 25px -5px rgba(29, 78, 216, 0.3); transform: translateY(0); }
+  50% { box-shadow: 0 15px 35px -5px rgba(29, 78, 216, 0.45); transform: translateY(-3px); }
+}
+
+@keyframes btn-pulse-orange {
+  0%, 100% { box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3); transform: translateY(0); }
+  50% { box-shadow: 0 15px 35px -5px rgba(249, 115, 22, 0.45); transform: translateY(-3px); }
+}
+
+@keyframes icon-spin {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(90deg); }
+  75% { transform: rotate(0deg); }
+}
+
+@keyframes icon-swing {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-12deg) scale(1.1); }
+  50% { transform: rotate(12deg) scale(1.1); }
+  75% { transform: rotate(0deg) scale(1); }
+}
+
+.animate-btn-blue {
+  animation: btn-pulse-blue 2.5s ease-in-out infinite;
+}
+
+.animate-btn-orange {
+  animation: btn-pulse-orange 2.5s ease-in-out 0.4s infinite;
+}
+
+.animate-icon-spin {
+  animation: icon-spin 3s ease-in-out infinite;
+}
+
+.animate-icon-swing {
+  animation: icon-swing 2.5s ease-in-out 0.4s infinite;
+}

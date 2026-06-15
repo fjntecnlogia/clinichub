@@ -29,9 +29,9 @@ export default async function PainelPage() {
         <div className="flex gap-4">
           <Link
             href="/painel/reservas"
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-primary text-white text-base font-extrabold rounded-2xl shadow-xl shadow-primary/30 transition-all duration-300 hover:bg-primary-dark hover:shadow-2xl hover:shadow-primary/40 hover:scale-105 hover:-translate-y-0.5 active:scale-95"
+            className="animate-btn-blue group inline-flex items-center gap-3 px-8 py-4 bg-primary text-white text-base font-extrabold rounded-2xl hover:bg-primary-dark hover:!shadow-2xl hover:!shadow-primary/50 active:scale-95 transition-colors duration-200"
           >
-            <span className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:rotate-90">
+            <span className="animate-icon-spin w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
               </svg>
@@ -40,9 +40,9 @@ export default async function PainelPage() {
           </Link>
           <Link
             href="/loja"
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-secondary text-white text-base font-extrabold rounded-2xl shadow-xl shadow-secondary/30 transition-all duration-300 hover:bg-secondary-dark hover:shadow-2xl hover:shadow-secondary/40 hover:scale-105 hover:-translate-y-0.5 active:scale-95"
+            className="animate-btn-orange group inline-flex items-center gap-3 px-8 py-4 bg-secondary text-white text-base font-extrabold rounded-2xl hover:bg-secondary-dark hover:!shadow-2xl hover:!shadow-secondary/50 active:scale-95 transition-colors duration-200"
           >
-            <span className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12">
+            <span className="animate-icon-swing w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
