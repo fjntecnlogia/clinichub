@@ -26,26 +26,34 @@ export default async function PainelPage() {
             {!hasData && <span className="text-amber-500 ml-2">(dados de demonstracao)</span>}
           </p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-5">
           <Link
             href="/painel/reservas"
-            className="animate-btn-blue group inline-flex items-center gap-3 px-8 py-4 bg-primary text-white text-base font-extrabold rounded-2xl hover:bg-primary-dark hover:!shadow-2xl hover:!shadow-primary/50 active:scale-95 transition-colors duration-200"
+            className="animate-btn-blue banner-shine relative inline-flex items-center gap-3 px-9 py-4.5 bg-primary text-white text-lg font-extrabold rounded-2xl hover:bg-primary-dark active:scale-95 transition-colors duration-200"
           >
-            <span className="animate-icon-spin w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-              </svg>
+            <span className="relative">
+              <span className="animate-icon-plus w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+              </span>
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full" />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-ring-ping" />
             </span>
             Nova Reserva
           </Link>
           <Link
             href="/loja"
-            className="animate-btn-orange group inline-flex items-center gap-3 px-8 py-4 bg-secondary text-white text-base font-extrabold rounded-2xl hover:bg-secondary-dark hover:!shadow-2xl hover:!shadow-secondary/50 active:scale-95 transition-colors duration-200"
+            className="animate-btn-orange banner-shine relative inline-flex items-center gap-3 px-9 py-4.5 bg-secondary text-white text-lg font-extrabold rounded-2xl hover:bg-secondary-dark active:scale-95 transition-colors duration-200"
           >
-            <span className="animate-icon-swing w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
+            <span className="relative">
+              <span className="animate-icon-bag w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+              </span>
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-400 rounded-full" />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-400 rounded-full animate-ring-ping" />
             </span>
             Loja
           </Link>
