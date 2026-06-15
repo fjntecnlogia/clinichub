@@ -1,30 +1,42 @@
 "use client";
 
 import { useState } from "react";
+import { useCart } from "@/lib/cart-context";
 
 const kits = [
   {
+    id: "kit-basico",
+    slug: "kit-basico",
     name: "Kit Basico",
     desc: "Luvas, mascaras, campos e materiais essenciais.",
-    price: "89,90",
+    price: 89.9,
+    priceLabel: "89,90",
     img: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=200&h=200&fit=crop",
   },
   {
+    id: "kit-avancado",
+    slug: "kit-avancado",
     name: "Kit Avancado",
     desc: "Anestesicos, resinas, agulhas e mais.",
-    price: "79,90",
+    price: 79.9,
+    priceLabel: "79,90",
     img: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=200&h=200&fit=crop",
   },
   {
+    id: "materiais-odontologicos",
+    slug: "materiais-odontologicos",
     name: "Materiais Odontologicos",
     desc: "Instrumentais, tenho tudo e descartaveis.",
-    price: "65,00",
+    price: 65.0,
+    priceLabel: "65,00",
     img: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=200&h=200&fit=crop",
   },
 ];
 
 export function Calculator() {
   const [days, setDays] = useState(5);
+  const [addedKits, setAddedKits] = useState<Record<string, boolean>>({});
+  const { addItem } = useCart();
   const hourRate = 75;
   const hoursPerDay = 3;
   const weeklySavings = days * hoursPerDay * (90 - hourRate);
@@ -71,7 +83,11 @@ export function Calculator() {
               </p>
             </div>
 
-            <button className="w-full py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-colors text-sm">
+            <button
+              type="button"
+              onClick={() => document.getElementById("pacotes")?.scrollIntoView({ behavior: "smooth" })}
+              className="w-full py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-colors text-sm"
+            >
               Simular Economia Completa
             </button>
 
@@ -101,10 +117,22 @@ export function Calculator() {
                   <div className="flex-1 min-w-0">
                     <h4 className="font-bold text-dark text-sm">{kit.name}</h4>
                     <p className="text-xs text-slate-400 mb-2">{kit.desc}</p>
-                    <p className="font-black text-dark">R$ {kit.price}</p>
+                    <p className="font-black text-dark">R$ {kit.priceLabel}</p>
                   </div>
-                  <button className="px-4 py-2 border-2 border-primary text-primary text-xs font-bold rounded-lg hover:bg-primary hover:text-white transition-colors whitespace-nowrap">
-                    + Adicionar
+                  <button
+                    type="button"
+                    onClick={() => {
+                      addItem({ id: kit.id, slug: kit.slug, nome: kit.name, preco: kit.price, foto_url: kit.img });
+                      setAddedKits(prev => ({ ...prev, [kit.id]: true }));
+                      setTimeout(() => setAddedKits(prev => ({ ...prev, [kit.id]: false })), 2000);
+                    }}
+                    className={`px-4 py-2 border-2 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${
+                      addedKits[kit.id]
+                        ? "border-green-500 bg-green-500 text-white"
+                        : "border-primary text-primary hover:bg-primary hover:text-white"
+                    }`}
+                  >
+                    {addedKits[kit.id] ? "Adicionado!" : "+ Adicionar"}
                   </button>
                 </div>
               ))}
