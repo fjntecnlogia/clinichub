@@ -66,7 +66,7 @@ export function Header() {
             )}
             <Link
               href={user ? "/painel/reservas" : "/cadastro"}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-lg transition-colors"
+              className="animate-header-glow inline-flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-lg transition-colors"
             >
               <svg
                 className="w-4 h-4"

@@ -32,7 +32,7 @@ export function CTA() {
             href="https://wa.me/5500000000000?text=Ola!%20Quero%20reservar%20minha%20cadeira%20no%20MaciHub"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-8 py-3 bg-secondary hover:bg-secondary-dark text-white text-sm font-black rounded-lg transition-colors shadow-lg"
+            className="animate-cta-bounce banner-shine inline-flex items-center justify-center px-8 py-3 bg-secondary hover:bg-secondary-dark text-white text-sm font-black rounded-lg shadow-lg"
           >
             Reservar Minha Cadeira Agora
           </a>
