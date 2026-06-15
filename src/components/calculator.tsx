@@ -7,8 +7,8 @@ const kits = [
   {
     id: "kit-basico",
     slug: "kit-basico",
-    name: "Kit Basico",
-    desc: "Luvas, mascaras, campos e materiais essenciais.",
+    name: "Kit Básico",
+    desc: "Luvas, máscaras, campos e materiais essenciais.",
     price: 89.9,
     priceLabel: "89,90",
     img: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=200&h=200&fit=crop",
@@ -16,8 +16,8 @@ const kits = [
   {
     id: "kit-avancado",
     slug: "kit-avancado",
-    name: "Kit Avancado",
-    desc: "Anestesicos, resinas, agulhas e mais.",
+    name: "Kit Avançado",
+    desc: "Anestésicos, resinas, agulhas e mais.",
     price: 79.9,
     priceLabel: "79,90",
     img: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=200&h=200&fit=crop",
@@ -25,8 +25,8 @@ const kits = [
   {
     id: "materiais-odontologicos",
     slug: "materiais-odontologicos",
-    name: "Materiais Odontologicos",
-    desc: "Instrumentais, tenho tudo e descartaveis.",
+    name: "Materiais Odontológicos",
+    desc: "Instrumentais e descartáveis.",
     price: 65.0,
     priceLabel: "65,00",
     img: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=200&h=200&fit=crop",
@@ -49,10 +49,10 @@ export function Calculator() {
           {/* Calculadora */}
           <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
             <h2 className="text-2xl font-black text-dark mb-2">
-              Quanto voce economiza com o MaciHub?
+              Quanto você economiza com o MaciHub?
             </h2>
             <p className="text-sm text-slate-500 mb-6">
-              Faca as contas e veja a diferenca no seu bolso.
+              Faça as contas e veja a diferença no seu bolso.
             </p>
 
             <div className="bg-white rounded-xl p-6 border border-slate-200 mb-6">
@@ -95,7 +95,7 @@ export function Calculator() {
               <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              Baseado em comparacao media com custos fixos de uma clinica propria.
+              Baseado em comparação média com custos fixos de uma clínica própria.
             </p>
           </div>
 

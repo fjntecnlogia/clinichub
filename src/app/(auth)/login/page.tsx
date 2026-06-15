@@ -104,12 +104,12 @@ function LoginForm() {
       </form>
 
       <div className="mt-6 text-center text-sm text-slate-500">
-        Nao tem conta?{" "}
+        Não tem conta?{" "}
         <Link
           href="/cadastro"
           className="text-primary font-semibold hover:text-primary-dark"
         >
-          Cadastre-se gratis
+          Cadastre-se grátis
         </Link>
       </div>
     </div>
@@ -128,7 +128,7 @@ export default function LoginPage() {
             Clinic<span className="text-primary-light">Hub</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-md">
-            Seu espaco profissional. Reserve salas equipadas e comece a atender
+            Seu espaço profissional. Reserve salas equipadas e comece a atender
             hoje mesmo.
           </p>
         </div>

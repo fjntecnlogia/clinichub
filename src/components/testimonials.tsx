@@ -1,8 +1,8 @@
 const testimonials = [
   {
     name: "Dr. Lucas Fernandes",
-    role: "Cirurgiao-Dentista",
-    text: "O MaciHub me deu liberdade para atender mais pacientes sem me preocupar com aluguel, funcionarios ou contas fixas. Meu faturamento triplicou!",
+    role: "Cirurgião-Dentista",
+    text: "O MaciHub me deu liberdade para atender mais pacientes sem me preocupar com aluguel, funcionários ou contas fixas. Meu faturamento triplicou!",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     stars: 5,
     rating: "5.0",
@@ -10,15 +10,15 @@ const testimonials = [
   {
     name: "Dra. Mariana Lima",
     role: "Ortodontista",
-    text: "A estrutura e impecavel e consigo agendar tudo pelo app em segundos. Atendo mais e ganho mais, sem dor de cabeca.",
+    text: "A estrutura é impecável e consigo agendar tudo pelo app em segundos. Atendo mais e ganho mais, sem dor de cabeça.",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     stars: 5,
     rating: "5.0",
   },
   {
     name: "Dr. Rafael Costa",
-    role: "Clinico Geral",
-    text: "Finalmente uma solucao pensada para dentistas. Pago so pelo que uso e tenho todo o suporte que preciso para crescer.",
+    role: "Clínico Geral",
+    text: "Finalmente uma solução pensada para dentistas. Pago só pelo que uso e tenho todo o suporte que preciso para crescer.",
     avatar: "https://randomuser.me/api/portraits/men/65.jpg",
     stars: 5,
     rating: "5.0",
@@ -31,7 +31,7 @@ export function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-2xl sm:text-3xl font-black text-dark tracking-tight mb-4">
-            Mais de 500 dentistas estao crescendo com o MaciHub
+            Mais de 500 dentistas estão crescendo com o MaciHub
           </h2>
         </div>
 

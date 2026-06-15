@@ -27,7 +27,7 @@ export async function createSala(formData: FormData) {
     tipo: formData.get("tipo") as string,
     andar: formData.get("andar") as string,
     preco_hora: parseFloat(formData.get("preco_hora") as string),
-    status: "Disponivel",
+    status: "Disponível",
     equipamentos,
   });
 

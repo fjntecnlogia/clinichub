@@ -12,7 +12,7 @@ const steps = [
       </svg>
     ),
     title: "Bem-vindo ao MaciHub!",
-    description: "Estamos felizes em ter voce aqui! Vamos fazer um tour rapido pelas principais funcionalidades da plataforma para voce aproveitar ao maximo.",
+    description: "Estamos felizes em ter você aqui! Vamos fazer um tour rápido pelas principais funcionalidades da plataforma para você aproveitar ao máximo.",
     tip: "O tutorial leva menos de 1 minuto",
   },
   {
@@ -22,8 +22,8 @@ const steps = [
       </svg>
     ),
     title: "Reserve Salas com Facilidade",
-    description: "Clique em \"Nova Reserva\" para agendar uma sala equipada por hora, turno ou mes. Escolha o horario, a sala e confirme em segundos. Sem burocracia!",
-    tip: "Use o botao azul no topo do painel",
+    description: "Clique em \"Nova Reserva\" para agendar uma sala equipada por hora, turno ou mês. Escolha o horário, a sala e confirme em segundos. Sem burocracia!",
+    tip: "Use o botão azul no topo do painel",
     highlight: "Nova Reserva",
   },
   {
@@ -33,8 +33,8 @@ const steps = [
       </svg>
     ),
     title: "Loja de Materiais",
-    description: "Acesse nossa loja com materiais odontologicos essenciais. Compre com frete gratis acima de R$150 e receba diretamente na clinica. Tudo em um so lugar!",
-    tip: "Use o botao laranja no topo do painel",
+    description: "Acesse nossa loja com materiais odontológicos essenciais. Compre com frete grátis acima de R$150 e receba diretamente na clínica. Tudo em um só lugar!",
+    tip: "Use o botão laranja no topo do painel",
     highlight: "Loja",
   },
   {
@@ -44,9 +44,9 @@ const steps = [
       </svg>
     ),
     title: "Painel de Controle",
-    description: "No seu painel voce acompanha tudo: proximas reservas, status dos pedidos, historico completo e estatisticas. Tudo organizado para voce focar no que importa: seus pacientes.",
-    tip: "O dashboard mostra um resumo rapido de tudo",
-    highlight: "Visao Geral",
+    description: "No seu painel você acompanha tudo: próximas reservas, status dos pedidos, histórico completo e estatísticas. Tudo organizado para você focar no que importa: seus pacientes.",
+    tip: "O dashboard mostra um resumo rápido de tudo",
+    highlight: "Visão Geral",
   },
   {
     icon: (
@@ -56,7 +56,7 @@ const steps = [
       </svg>
     ),
     title: "Complete seu Perfil",
-    description: "Adicione sua especialidade, CRM, telefone e foto. Um perfil completo transmite mais confianca e ajuda na hora de agendar salas especializadas.",
+    description: "Adicione sua especialidade, CRM, telefone e foto. Um perfil completo transmite mais confiança e ajuda na hora de agendar salas especializadas.",
     tip: "Acesse \"Meu Perfil\" no menu lateral",
     highlight: "Meu Perfil",
   },
@@ -66,8 +66,8 @@ const steps = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
       </svg>
     ),
-    title: "Suporte Sempre Disponivel",
-    description: "Precisa de ajuda? Use o chat de suporte direto do seu painel. Nossa equipe responde rapidamente para resolver qualquer duvida sobre reservas, pagamentos ou a plataforma.",
+    title: "Suporte Sempre Disponível",
+    description: "Precisa de ajuda? Use o chat de suporte direto do seu painel. Nossa equipe responde rapidamente para resolver qualquer dúvida sobre reservas, pagamentos ou a plataforma.",
     tip: "Clique em \"Suporte\" no menu lateral",
     highlight: "Suporte",
   },
@@ -78,8 +78,8 @@ const steps = [
       </svg>
     ),
     title: "Tudo Pronto!",
-    description: "Voce ja conhece as principais funcionalidades do MaciHub. Agora e so reservar sua primeira sala e comecar a atender. Bons atendimentos!",
-    tip: "Voce pode rever este tutorial a qualquer momento no seu perfil",
+    description: "Você já conhece as principais funcionalidades do MaciHub. Agora é só reservar sua primeira sala e começar a atender. Bons atendimentos!",
+    tip: "Você pode rever este tutorial a qualquer momento no seu perfil",
   },
 ];
 
@@ -215,7 +215,7 @@ export function OnboardingTutorial() {
                   : "bg-primary hover:bg-primary-dark"
               }`}
             >
-              {isLast ? "Comecar a usar!" : "Proximo"}
+              {isLast ? "Começar a usar!" : "Próximo"}
             </button>
           </div>
         </div>

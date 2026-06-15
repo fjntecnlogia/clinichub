@@ -18,7 +18,7 @@ export default function CadastroPage() {
     setLoading(true);
 
     if (form.password.length < 8) {
-      setError("A senha deve ter no minimo 8 caracteres.");
+      setError("A senha deve ter no mínimo 8 caracteres.");
       setLoading(false);
       return;
     }
@@ -57,13 +57,13 @@ export default function CadastroPage() {
             Clinic<span className="text-primary-light">Hub</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-md">
-            Junte-se a centenas de profissionais que ja transformaram sua
+            Junte-se a centenas de profissionais que já transformaram sua
             carreira.
           </p>
           <div className="mt-10 grid grid-cols-3 gap-6 max-w-sm mx-auto">
             {[
               { n: "500+", l: "Profissionais" },
-              { n: "50+", l: "Clinicas" },
+              { n: "50+", l: "Clínicas" },
               { n: "10k+", l: "Reservas" },
             ].map((s) => (
               <div key={s.l} className="text-center">
@@ -102,7 +102,7 @@ export default function CadastroPage() {
           <div className="flex gap-2 p-1 bg-slate-100 rounded-lg mb-6">
             {[
               { v: "profissional", l: "Profissional" },
-              { v: "clinica", l: "Sou Clinica" },
+              { v: "clinica", l: "Sou Clínica" },
             ].map((t) => (
               <button
                 key={t.v}
@@ -128,7 +128,7 @@ export default function CadastroPage() {
                 type="text"
                 value={form.nome}
                 onChange={(e) => set("nome", e.target.value)}
-                placeholder="Dr. Joao Silva"
+                placeholder="Dr. João Silva"
                 required
                 className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
@@ -169,7 +169,7 @@ export default function CadastroPage() {
                 type="password"
                 value={form.password}
                 onChange={(e) => set("password", e.target.value)}
-                placeholder="Minimo 8 caracteres"
+                placeholder="Mínimo 8 caracteres"
                 required
                 className="w-full px-4 py-3 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
               />
@@ -185,18 +185,18 @@ export default function CadastroPage() {
           </form>
 
           <p className="mt-4 text-xs text-slate-400 text-center">
-            Ao criar sua conta, voce concorda com nossos{" "}
+            Ao criar sua conta, você concorda com nossos{" "}
             <a href="#" className="text-primary">Termos de Uso</a> e{" "}
-            <a href="#" className="text-primary">Politica de Privacidade</a>.
+            <a href="#" className="text-primary">Política de Privacidade</a>.
           </p>
 
           <div className="mt-6 text-center text-sm text-slate-500">
-            Ja tem conta?{" "}
+            Já tem conta?{" "}
             <Link
               href="/login"
               className="text-primary font-semibold hover:text-primary-dark"
             >
-              Faca login
+              Faça login
             </Link>
           </div>
         </div>

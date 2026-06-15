@@ -81,8 +81,8 @@ export default function ProductPage() {
           </div>
         </header>
         <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-          <h1 className="text-2xl font-extrabold text-dark mb-2">Produto nao encontrado</h1>
-          <p className="text-slate-500 mb-6">O produto que voce procura nao existe ou foi removido.</p>
+          <h1 className="text-2xl font-extrabold text-dark mb-2">Produto não encontrado</h1>
+          <p className="text-slate-500 mb-6">O produto que você procura não existe ou foi removido.</p>
           <Link href="/loja" className="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary-dark transition-colors">
             Ver todos os produtos
           </Link>
@@ -146,7 +146,7 @@ export default function ProductPage() {
 
             <p className="text-sm text-slate-400 mb-6">
               {product.estoque > 0 ? (
-                <span className="text-green-600 font-medium">Em estoque ({product.estoque} disponiveis)</span>
+                <span className="text-green-600 font-medium">Em estoque ({product.estoque} disponíveis)</span>
               ) : (
                 <span className="text-red-500 font-medium">Fora de estoque</span>
               )}
@@ -172,7 +172,7 @@ export default function ProductPage() {
             </div>
 
             <div className="bg-white rounded-xl border border-slate-200 p-5">
-              <h3 className="font-bold text-dark mb-3">Especificacoes</h3>
+              <h3 className="font-bold text-dark mb-3">Especificações</h3>
               <div className="space-y-2">
                 {specs.map((s) => (
                   <div key={s.k} className="flex justify-between text-sm">
@@ -188,7 +188,7 @@ export default function ProductPage() {
                 <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
-                Frete gratis acima de R$ 299
+                Frete grátis acima de R$ 299
               </div>
               <div className="flex items-center gap-1.5">
                 <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>

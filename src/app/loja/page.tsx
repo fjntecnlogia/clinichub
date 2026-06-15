@@ -4,13 +4,13 @@ import { CartBadge } from "@/components/cart-badge";
 
 const mockProdutos = [
   { id: "1", slug: "jaleco-premium-branco", nome: "Jaleco Premium Branco", categoria: "Jalecos", preco: 189.9, preco_antigo: 229.9, foto_url: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=400&h=400&fit=crop", badge: "Mais vendido" },
-  { id: "2", slug: "estetoscopio-littmann", nome: "Estetoscopio Littmann Classic III", categoria: "Equipamentos", preco: 849.9, foto_url: "https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
-  { id: "3", slug: "kit-curativos", nome: "Kit Curativos Estereis (50 un)", categoria: "Materiais", preco: 45.9, foto_url: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
-  { id: "4", slug: "luvas-nitrilo", nome: "Luvas Nitrilo Descartaveis (cx 100)", categoria: "Materiais", preco: 54.9, foto_url: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=400&h=400&fit=crop", preco_antigo: null, badge: "Oferta" },
-  { id: "5", slug: "maca-portatil", nome: "Maca Portatil Premium Dobravel", categoria: "Mobiliario", preco: 1290.0, preco_antigo: 1490.0, foto_url: "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&h=400&fit=crop", badge: null },
-  { id: "6", slug: "scrub-cirurgico-azul", nome: "Scrub Cirurgico Azul P/M/G", categoria: "Roupas", preco: 129.9, foto_url: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
-  { id: "7", slug: "otoscopio-digital", nome: "Otoscopio Digital HD com Camera", categoria: "Equipamentos", preco: 1450.0, foto_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=400&fit=crop", preco_antigo: null, badge: "Novo" },
-  { id: "8", slug: "mascara-n95", nome: "Mascara N95 PFF2 (cx 20)", categoria: "Materiais", preco: 39.9, foto_url: "https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
+  { id: "2", slug: "estetoscopio-littmann", nome: "Estetoscópio Littmann Classic III", categoria: "Equipamentos", preco: 849.9, foto_url: "https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
+  { id: "3", slug: "kit-curativos", nome: "Kit Curativos Estéreis (50 un)", categoria: "Materiais", preco: 45.9, foto_url: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
+  { id: "4", slug: "luvas-nitrilo", nome: "Luvas Nitrilo Descartáveis (cx 100)", categoria: "Materiais", preco: 54.9, foto_url: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?w=400&h=400&fit=crop", preco_antigo: null, badge: "Oferta" },
+  { id: "5", slug: "maca-portatil", nome: "Maca Portátil Premium Dobrável", categoria: "Mobiliário", preco: 1290.0, preco_antigo: 1490.0, foto_url: "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&h=400&fit=crop", badge: null },
+  { id: "6", slug: "scrub-cirurgico-azul", nome: "Scrub Cirúrgico Azul P/M/G", categoria: "Roupas", preco: 129.9, foto_url: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
+  { id: "7", slug: "otoscopio-digital", nome: "Otoscópio Digital HD com Câmera", categoria: "Equipamentos", preco: 1450.0, foto_url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=400&fit=crop", preco_antigo: null, badge: "Novo" },
+  { id: "8", slug: "mascara-n95", nome: "Máscara N95 PFF2 (cx 20)", categoria: "Materiais", preco: 39.9, foto_url: "https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=400&h=400&fit=crop", preco_antigo: null, badge: null },
 ];
 
 async function getProdutos() {
@@ -57,7 +57,7 @@ export default async function LojaPage({ searchParams }: { searchParams: Promise
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-extrabold text-dark">Loja</h1>
-          <p className="text-slate-500 mt-1">Equipamentos, materiais e acessorios para profissionais de saude</p>
+          <p className="text-slate-500 mt-1">Equipamentos, materiais e acessórios para profissionais de saúde</p>
         </div>
 
         <div className="flex flex-wrap gap-2 mb-8">

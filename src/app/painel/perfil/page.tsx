@@ -70,13 +70,13 @@ export default function PerfilPage() {
     <div className="p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-extrabold text-dark">Meu Perfil</h1>
-        <p className="text-slate-500 text-sm mt-1">Gerencie suas informacoes pessoais</p>
+        <p className="text-slate-500 text-sm mt-1">Gerencie suas informações pessoais</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
           <form onSubmit={handleSave} className="bg-white rounded-xl border border-slate-200 p-6">
-            <h2 className="font-bold text-dark mb-5">Informacoes Pessoais</h2>
+            <h2 className="font-bold text-dark mb-5">Informações Pessoais</h2>
 
             {saved && (
               <div className="mb-4 px-4 py-3 bg-green-50 border border-green-200 text-green-700 text-sm rounded-lg">
@@ -145,7 +145,7 @@ export default function PerfilPage() {
               disabled={saving}
               className="mt-5 px-6 py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 transition-colors"
             >
-              {saving ? "Salvando..." : "Salvar Alteracoes"}
+              {saving ? "Salvando..." : "Salvar Alterações"}
             </button>
           </form>
         </div>

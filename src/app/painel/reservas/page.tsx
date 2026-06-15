@@ -23,10 +23,10 @@ interface Reserva {
 }
 
 const mockReservas: Reserva[] = [
-  { id: "1", sala: { nome: "Consultorio 3A" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Confirmada", notas: null },
-  { id: "2", sala: { nome: "Consultorio 1B" }, data: "2026-06-14", hora_inicio: "14:00", hora_fim: "17:00", valor: 135, status: "Pendente", notas: null },
-  { id: "3", sala: { nome: "Consultorio 3A" }, data: "2026-06-07", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Concluida", notas: null },
-  { id: "4", sala: { nome: "Sala de Exames 2" }, data: "2026-06-04", hora_inicio: "10:00", hora_fim: "12:00", valor: 160, status: "Concluida", notas: null },
+  { id: "1", sala: { nome: "Consultório 3A" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Confirmada", notas: null },
+  { id: "2", sala: { nome: "Consultório 1B" }, data: "2026-06-14", hora_inicio: "14:00", hora_fim: "17:00", valor: 135, status: "Pendente", notas: null },
+  { id: "3", sala: { nome: "Consultório 3A" }, data: "2026-06-07", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Concluída", notas: null },
+  { id: "4", sala: { nome: "Sala de Exames 2" }, data: "2026-06-04", hora_inicio: "10:00", hora_fim: "12:00", valor: 160, status: "Concluída", notas: null },
 ];
 
 const HORARIOS = [
@@ -83,17 +83,17 @@ export default function MinhasReservas() {
       const { data, error } = await supabase
         .from("salas")
         .select("id, nome, tipo, preco_hora, status")
-        .eq("status", "Disponivel")
+        .eq("status", "Disponível")
         .order("nome");
 
       if (!error && data && data.length > 0) {
         setSalas(data);
       } else {
         setSalas([
-          { id: "mock-1", nome: "Consultorio 1A", tipo: "Consultorio", preco_hora: 45, status: "Disponivel" },
-          { id: "mock-2", nome: "Consultorio 3A", tipo: "Consultorio", preco_hora: 55, status: "Disponivel" },
-          { id: "mock-3", nome: "Sala de Exames 2", tipo: "Exames", preco_hora: 80, status: "Disponivel" },
-          { id: "mock-4", nome: "Consultorio 5C", tipo: "Consultorio", preco_hora: 60, status: "Disponivel" },
+          { id: "mock-1", nome: "Consultório 1A", tipo: "Consultório", preco_hora: 45, status: "Disponível" },
+          { id: "mock-2", nome: "Consultório 3A", tipo: "Consultório", preco_hora: 55, status: "Disponível" },
+          { id: "mock-3", nome: "Sala de Exames 2", tipo: "Exames", preco_hora: 80, status: "Disponível" },
+          { id: "mock-4", nome: "Consultório 5C", tipo: "Consultório", preco_hora: 60, status: "Disponível" },
         ]);
       }
     } catch {
@@ -133,13 +133,13 @@ export default function MinhasReservas() {
     const [h1] = horaInicio.split(":").map(Number);
     const [h2] = horaFim.split(":").map(Number);
     if (h2 <= h1) {
-      setErro("Horario final deve ser maior que o inicial");
+      setErro("Horário final deve ser maior que o inicial");
       return;
     }
 
     const hoje = new Date().toISOString().split("T")[0];
     if (data < hoje) {
-      setErro("Data nao pode ser no passado");
+      setErro("Data não pode ser no passado");
       return;
     }
 
@@ -149,7 +149,7 @@ export default function MinhasReservas() {
       const { data: { user } } = await supabase.auth.getUser();
 
       if (!user) {
-        setErro("Voce precisa estar logado para reservar");
+        setErro("Você precisa estar logado para reservar");
         setSaving(false);
         return;
       }
@@ -212,7 +212,7 @@ export default function MinhasReservas() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-extrabold text-dark">Minhas Reservas</h1>
-          <p className="text-slate-500 text-sm mt-1">Historico de todas as suas reservas</p>
+          <p className="text-slate-500 text-sm mt-1">Histórico de todas as suas reservas</p>
         </div>
         <button
           onClick={openModal}
@@ -223,7 +223,7 @@ export default function MinhasReservas() {
       </div>
 
       <div className="flex gap-2 mb-6">
-        {["Todas", "Confirmada", "Pendente", "Concluida", "Cancelada"].map((t) => (
+        {["Todas", "Confirmada", "Pendente", "Concluída", "Cancelada"].map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -263,7 +263,7 @@ export default function MinhasReservas() {
                 <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
                   r.status === "Confirmada" ? "bg-green-50 text-green-700"
                     : r.status === "Pendente" ? "bg-amber-50 text-amber-700"
-                    : r.status === "Concluida" ? "bg-blue-50 text-blue-700"
+                    : r.status === "Concluída" ? "bg-blue-50 text-blue-700"
                     : "bg-red-50 text-red-600"
                 }`}>
                   {r.status}
@@ -327,7 +327,7 @@ export default function MinhasReservas() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-dark mb-1">Hora Inicio</label>
+                  <label className="block text-sm font-semibold text-dark mb-1">Hora Início</label>
                   <select
                     value={horaInicio}
                     onChange={(e) => setHoraInicio(e.target.value)}
@@ -353,7 +353,7 @@ export default function MinhasReservas() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-dark mb-1">Observacoes (opcional)</label>
+                <label className="block text-sm font-semibold text-dark mb-1">Observações (opcional)</label>
                 <textarea
                   value={notas}
                   onChange={(e) => setNotas(e.target.value)}
@@ -370,7 +370,7 @@ export default function MinhasReservas() {
                     <span className="text-slate-500">R$ {Number(salaSelecionada?.preco_hora ?? 0).toFixed(0)}/h</span>
                   </div>
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-slate-600">{horaInicio} ate {horaFim}</span>
+                    <span className="text-slate-600">{horaInicio} até {horaFim}</span>
                     <span className="text-slate-500">{(() => { const [h1] = horaInicio.split(":").map(Number); const [h2] = horaFim.split(":").map(Number); return h2 - h1; })()} horas</span>
                   </div>
                   <div className="border-t border-primary/10 pt-2 flex justify-between">

@@ -24,18 +24,18 @@ interface Reserva {
 }
 
 const mockSalas: Sala[] = [
-  { id: "1", nome: "Consultorio 1A", tipo: "Consultorio", andar: "1", preco_hora: 90, status: "Disponivel", equipamentos: ["Maca", "Negatoscopio", "Ar-condicionado"] },
-  { id: "2", nome: "Consultorio 1B", tipo: "Consultorio", andar: "1", preco_hora: 90, status: "Disponivel", equipamentos: ["Maca", "Balanca digital", "Ar-condicionado"] },
-  { id: "3", nome: "Consultorio 3A", tipo: "Consultorio", andar: "3", preco_hora: 55, status: "Disponivel", equipamentos: ["Maca", "Ar-condicionado", "Pia", "Autoclave"] },
-  { id: "4", nome: "Sala Cirurgica 1", tipo: "Cirurgica", andar: "2", preco_hora: 120, status: "Manutencao", equipamentos: ["Mesa cirurgica", "Foco", "Ar-condicionado", "Autoclave", "Monitor"] },
-  { id: "5", nome: "Sala de Exames 2", tipo: "Exames", andar: "2", preco_hora: 80, status: "Disponivel", equipamentos: ["Maca", "Ultrassom", "Ar-condicionado"] },
-  { id: "6", nome: "Consultorio 5C", tipo: "Consultorio", andar: "5", preco_hora: 60, status: "Disponivel", equipamentos: ["Maca", "Ar-condicionado", "Pia", "Computador"] },
+  { id: "1", nome: "Consultório 1A", tipo: "Consultório", andar: "1", preco_hora: 90, status: "Disponível", equipamentos: ["Maca", "Negatoscópio", "Ar-condicionado"] },
+  { id: "2", nome: "Consultório 1B", tipo: "Consultório", andar: "1", preco_hora: 90, status: "Disponível", equipamentos: ["Maca", "Balança digital", "Ar-condicionado"] },
+  { id: "3", nome: "Consultório 3A", tipo: "Consultório", andar: "3", preco_hora: 55, status: "Disponível", equipamentos: ["Maca", "Ar-condicionado", "Pia", "Autoclave"] },
+  { id: "4", nome: "Sala Cirúrgica 1", tipo: "Cirúrgica", andar: "2", preco_hora: 120, status: "Manutenção", equipamentos: ["Mesa cirúrgica", "Foco", "Ar-condicionado", "Autoclave", "Monitor"] },
+  { id: "5", nome: "Sala de Exames 2", tipo: "Exames", andar: "2", preco_hora: 80, status: "Disponível", equipamentos: ["Maca", "Ultrassom", "Ar-condicionado"] },
+  { id: "6", nome: "Consultório 5C", tipo: "Consultório", andar: "5", preco_hora: 60, status: "Disponível", equipamentos: ["Maca", "Ar-condicionado", "Pia", "Computador"] },
 ];
 
-const mockHistorico: Reserva[] = [
+const mockHistórico: Reserva[] = [
   { id: "h1", data: "2026-06-14", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Confirmada", profile: { nome: "Dr. Carlos Mendes", email: "carlos@email.com" } },
-  { id: "h2", data: "2026-06-12", hora_inicio: "14:00", hora_fim: "17:00", valor: 135, status: "Concluida", profile: { nome: "Dra. Ana Souza", email: "ana@email.com" } },
-  { id: "h3", data: "2026-06-10", hora_inicio: "09:00", hora_fim: "11:00", valor: 90, status: "Concluida", profile: { nome: "Dr. Pedro Lima", email: "pedro@email.com" } },
+  { id: "h2", data: "2026-06-12", hora_inicio: "14:00", hora_fim: "17:00", valor: 135, status: "Concluída", profile: { nome: "Dra. Ana Souza", email: "ana@email.com" } },
+  { id: "h3", data: "2026-06-10", hora_inicio: "09:00", hora_fim: "11:00", valor: 90, status: "Concluída", profile: { nome: "Dr. Pedro Lima", email: "pedro@email.com" } },
   { id: "h4", data: "2026-06-07", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Cancelada", profile: { nome: "Dra. Julia Costa", email: "julia@email.com" } },
 ];
 
@@ -46,11 +46,11 @@ export default function AdminSalas() {
   const [saving, setSaving] = useState(false);
 
   const [editSala, setEditSala] = useState<Sala | null>(null);
-  const [editForm, setEditForm] = useState({ nome: "", tipo: "Consultorio", andar: "", preco_hora: "", status: "Disponivel", equipamentos: "" });
+  const [editForm, setEditForm] = useState({ nome: "", tipo: "Consultório", andar: "", preco_hora: "", status: "Disponível", equipamentos: "" });
   const [editSaving, setEditSaving] = useState(false);
 
   const [histSala, setHistSala] = useState<Sala | null>(null);
-  const [historico, setHistorico] = useState<Reserva[]>([]);
+  const [historico, setHistórico] = useState<Reserva[]>([]);
   const [histLoading, setHistLoading] = useState(false);
 
   const loadSalas = useCallback(async () => {
@@ -79,7 +79,7 @@ export default function AdminSalas() {
       tipo: fd.get("tipo") as string,
       andar: fd.get("andar") as string,
       preco_hora: parseFloat(fd.get("preco_hora") as string),
-      status: "Disponivel",
+      status: "Disponível",
       equipamentos: (fd.get("equipamentos") as string).split(",").map((e) => e.trim()).filter(Boolean),
     };
 
@@ -149,10 +149,10 @@ export default function AdminSalas() {
     setEditSala(null);
   }
 
-  async function openHistorico(sala: Sala) {
+  async function openHistórico(sala: Sala) {
     setHistSala(sala);
     setHistLoading(true);
-    setHistorico([]);
+    setHistórico([]);
 
     try {
       const supabase = createClient();
@@ -164,12 +164,12 @@ export default function AdminSalas() {
         .limit(20);
 
       if (!error && data && data.length > 0) {
-        setHistorico(data as unknown as Reserva[]);
+        setHistórico(data as unknown as Reserva[]);
       } else {
-        setHistorico(mockHistorico);
+        setHistórico(mockHistórico);
       }
     } catch {
-      setHistorico(mockHistorico);
+      setHistórico(mockHistórico);
     }
     setHistLoading(false);
   }
@@ -178,9 +178,9 @@ export default function AdminSalas() {
 
   const stats = {
     total: salas.length,
-    disponiveis: salas.filter((s) => s.status === "Disponivel").length,
+    disponiveis: salas.filter((s) => s.status === "Disponível").length,
     ocupadas: salas.filter((s) => s.status === "Ocupada").length,
-    manutencao: salas.filter((s) => s.status === "Manutencao").length,
+    manutencao: salas.filter((s) => s.status === "Manutenção").length,
   };
 
   return (
@@ -188,7 +188,7 @@ export default function AdminSalas() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-extrabold text-dark">Salas</h1>
-          <p className="text-slate-500 text-sm mt-1">Gerencie as salas da clinica</p>
+          <p className="text-slate-500 text-sm mt-1">Gerencie as salas da clínica</p>
         </div>
         <button onClick={() => setShowModal(true)} className="px-4 py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-dark transition-colors">
           + Nova Sala
@@ -202,7 +202,7 @@ export default function AdminSalas() {
           <div className="text-xl font-extrabold text-dark">{stats.total}</div>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-4">
-          <div className="text-xs text-slate-400 font-medium mb-1">Disponiveis</div>
+          <div className="text-xs text-slate-400 font-medium mb-1">Disponíveis</div>
           <div className="text-xl font-extrabold text-green-600">{stats.disponiveis}</div>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-4">
@@ -210,13 +210,13 @@ export default function AdminSalas() {
           <div className="text-xl font-extrabold text-amber-600">{stats.ocupadas}</div>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-4">
-          <div className="text-xs text-slate-400 font-medium mb-1">Manutencao</div>
+          <div className="text-xs text-slate-400 font-medium mb-1">Manutenção</div>
           <div className="text-xl font-extrabold text-red-600">{stats.manutencao}</div>
         </div>
       </div>
 
       <div className="flex gap-2 mb-6">
-        {["Todos", "Disponivel", "Ocupada", "Manutencao"].map((f) => (
+        {["Todos", "Disponível", "Ocupada", "Manutenção"].map((f) => (
           <button
             key={f}
             onClick={() => setFiltro(f)}
@@ -238,7 +238,7 @@ export default function AdminSalas() {
                 <p className="text-xs text-slate-400">{sala.tipo} · {sala.andar}o andar</p>
               </div>
               <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
-                sala.status === "Disponivel" ? "bg-green-50 text-green-700"
+                sala.status === "Disponível" ? "bg-green-50 text-green-700"
                   : sala.status === "Ocupada" ? "bg-amber-50 text-amber-700"
                   : "bg-red-50 text-red-600"
               }`}>
@@ -261,10 +261,10 @@ export default function AdminSalas() {
                 Editar
               </button>
               <button
-                onClick={() => openHistorico(sala)}
+                onClick={() => openHistórico(sala)}
                 className="flex-1 py-2 text-xs font-semibold bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200 transition-colors"
               >
-                Historico
+                Histórico
               </button>
             </div>
           </div>
@@ -287,13 +287,13 @@ export default function AdminSalas() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-dark mb-1">Nome</label>
-                  <input name="nome" required placeholder="Consultorio 7A" className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none" />
+                  <input name="nome" required placeholder="Consultório 7A" className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-dark mb-1">Tipo</label>
                   <select name="tipo" className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none">
-                    <option>Consultorio</option>
-                    <option>Cirurgica</option>
+                    <option>Consultório</option>
+                    <option>Cirúrgica</option>
                     <option>Exames</option>
                     <option>Outro</option>
                   </select>
@@ -305,12 +305,12 @@ export default function AdminSalas() {
                   <input name="andar" required placeholder="3" className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none" />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-dark mb-1">Preco/hora (R$)</label>
+                  <label className="block text-sm font-semibold text-dark mb-1">Preço/hora (R$)</label>
                   <input name="preco_hora" type="number" step="0.01" required placeholder="55" className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-dark mb-1">Equipamentos (separados por virgula)</label>
+                <label className="block text-sm font-semibold text-dark mb-1">Equipamentos (separados por vírgula)</label>
                 <input name="equipamentos" placeholder="Maca, Ar-condicionado, Pia" className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none" />
               </div>
               <div className="flex gap-3 pt-2">
@@ -356,8 +356,8 @@ export default function AdminSalas() {
                     onChange={(e) => setEditForm((p) => ({ ...p, tipo: e.target.value }))}
                     className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
                   >
-                    <option>Consultorio</option>
-                    <option>Cirurgica</option>
+                    <option>Consultório</option>
+                    <option>Cirúrgica</option>
                     <option>Exames</option>
                     <option>Outro</option>
                   </select>
@@ -374,7 +374,7 @@ export default function AdminSalas() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-dark mb-1">Preco/hora</label>
+                  <label className="block text-sm font-semibold text-dark mb-1">Preço/hora</label>
                   <input
                     type="number"
                     step="0.01"
@@ -391,14 +391,14 @@ export default function AdminSalas() {
                     onChange={(e) => setEditForm((p) => ({ ...p, status: e.target.value }))}
                     className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
                   >
-                    <option>Disponivel</option>
+                    <option>Disponível</option>
                     <option>Ocupada</option>
-                    <option>Manutencao</option>
+                    <option>Manutenção</option>
                   </select>
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-dark mb-1">Equipamentos (separados por virgula)</label>
+                <label className="block text-sm font-semibold text-dark mb-1">Equipamentos (separados por vírgula)</label>
                 <input
                   value={editForm.equipamentos}
                   onChange={(e) => setEditForm((p) => ({ ...p, equipamentos: e.target.value }))}
@@ -410,7 +410,7 @@ export default function AdminSalas() {
                   Cancelar
                 </button>
                 <button type="submit" disabled={editSaving} className="flex-1 py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 transition-colors">
-                  {editSaving ? "Salvando..." : "Salvar Alteracoes"}
+                  {editSaving ? "Salvando..." : "Salvar Alterações"}
                 </button>
               </div>
             </form>
@@ -418,13 +418,13 @@ export default function AdminSalas() {
         </div>
       )}
 
-      {/* Modal Historico */}
+      {/* Modal Histórico */}
       {histSala && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setHistSala(null)}>
           <div className="bg-white rounded-2xl w-full max-w-2xl mx-4 max-h-[85vh] overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
             <div className="px-6 pt-6 pb-4 border-b border-slate-100 flex items-center justify-between shrink-0">
               <div>
-                <h2 className="text-lg font-extrabold text-dark">Historico de Reservas</h2>
+                <h2 className="text-lg font-extrabold text-dark">Histórico de Reservas</h2>
                 <p className="text-xs text-slate-400 mt-0.5">{histSala.nome} · {histSala.tipo} · {histSala.andar}o andar</p>
               </div>
               <button onClick={() => setHistSala(null)} className="text-slate-400 hover:text-dark p-1">
@@ -473,7 +473,7 @@ export default function AdminSalas() {
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                           r.status === "Confirmada" ? "bg-green-50 text-green-700"
                             : r.status === "Pendente" ? "bg-amber-50 text-amber-700"
-                            : r.status === "Concluida" ? "bg-blue-50 text-blue-700"
+                            : r.status === "Concluída" ? "bg-blue-50 text-blue-700"
                             : "bg-red-50 text-red-600"
                         }`}>
                           {r.status}

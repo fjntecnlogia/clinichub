@@ -25,17 +25,17 @@ export function PromoBanner() {
             <div key={copy} className="flex items-center gap-12">
               <span className="flex items-center gap-2 text-sm font-bold">
                 <span className="text-lg">🎉</span>
-                INAUGURACAO MaciHub — 20% OFF na primeira reserva!
+                INAUGURAÇÃO MaciHub — 20% OFF na primeira reserva!
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
               <span className="flex items-center gap-2 text-sm font-bold">
                 <span className="text-lg">🦷</span>
-                Cadeiras equipadas prontas para voce atender
+                Cadeiras equipadas prontas para você atender
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
               <span className="flex items-center gap-2 text-sm font-bold">
                 <span className="text-lg">📦</span>
-                Loja com materiais odontologicos — frete gratis acima de R$150
+                Loja com materiais odontológicos — frete grátis acima de R$150
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
               <span className="flex items-center gap-2 text-sm font-bold">

@@ -79,7 +79,7 @@ export function ChatWidget() {
         user_id: userId,
         nome_visitante: nome,
         email_visitante: email || null,
-        assunto: assunto || "Duvida geral",
+        assunto: assunto || "Dúvida geral",
       })
       .select("id")
       .single();
@@ -88,7 +88,7 @@ export function ChatWidget() {
       setConversaId(data.id);
       setStep("chat");
 
-      const autoMsg = `Ola ${nome.split(" ")[0]}! Bem-vindo ao suporte MaciHub. Como podemos ajudar?`;
+      const autoMsg = `Olá ${nome.split(" ")[0]}! Bem-vindo ao suporte MaciHub. Como podemos ajudar?`;
       await supabase.from("mensagens_suporte").insert({
         conversa_id: data.id,
         remetente: "suporte",
@@ -145,7 +145,7 @@ export function ChatWidget() {
             </div>
             <div>
               <div className="text-white font-bold text-sm">Suporte MaciHub</div>
-              <div className="text-white/70 text-xs">Tempo medio de resposta: 5 min</div>
+              <div className="text-white/70 text-xs">Tempo médio de resposta: 5 min</div>
             </div>
           </div>
 
@@ -179,10 +179,10 @@ export function ChatWidget() {
                   onChange={(e) => setAssunto(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
                 >
-                  <option value="Duvida geral">Duvida geral</option>
+                  <option value="Dúvida geral">Dúvida geral</option>
                   <option value="Reservas">Reservas</option>
                   <option value="Pagamento">Pagamento</option>
-                  <option value="Problemas tecnicos">Problemas tecnicos</option>
+                  <option value="Problemas técnicos">Problemas técnicos</option>
                   <option value="Outro">Outro</option>
                 </select>
               </div>

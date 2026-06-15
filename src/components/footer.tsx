@@ -15,7 +15,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm leading-relaxed mb-5">
-              A plataforma #1 de aluguel de salas medicas do Brasil.
+              A plataforma #1 de aluguel de salas médicas do Brasil.
             </p>
             <div className="flex gap-3">
               <a
@@ -83,10 +83,10 @@ export function Footer() {
               Institucional
             </h4>
             <ul className="space-y-2.5 text-sm">
-              <li><Link href="/sobre" className="hover:text-primary-light transition-colors">Sobre Nos</Link></li>
+              <li><Link href="/sobre" className="hover:text-primary-light transition-colors">Sobre Nós</Link></li>
               <li><Link href="/contato" className="hover:text-primary-light transition-colors">Contato</Link></li>
               <li><Link href="/termos" className="hover:text-primary-light transition-colors">Termos de Uso</Link></li>
-              <li><Link href="/privacidade" className="hover:text-primary-light transition-colors">Politica de Privacidade</Link></li>
+              <li><Link href="/privacidade" className="hover:text-primary-light transition-colors">Política de Privacidade</Link></li>
             </ul>
           </div>
 

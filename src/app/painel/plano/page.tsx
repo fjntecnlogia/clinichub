@@ -19,17 +19,17 @@ const planos = [
     descricao: "Ideal para quem atende esporadicamente",
     preco: 45,
     unidade: "/hora",
-    features: ["Sala equipada completa", "Wi-Fi de alta velocidade", "Recepcao compartilhada", "Estacionamento"],
+    features: ["Sala equipada completa", "Wi-Fi de alta velocidade", "Recepção compartilhada", "Estacionamento"],
     cor: "slate",
     popular: false,
   },
   {
     id: "turno",
     nome: "Turno",
-    descricao: "Manha ou tarde, 4-6 horas fixas por semana",
+    descricao: "Manhã ou tarde, 4-6 horas fixas por semana",
     preco: 299,
     unidade: "/turno",
-    features: ["Tudo do plano Avulso", "Prioridade na reserva", "Armario individual", "Desconto no e-commerce", "Sem taxa de reserva"],
+    features: ["Tudo do plano Avulso", "Prioridade na reserva", "Armário individual", "Desconto no e-commerce", "Sem taxa de reserva"],
     cor: "primary",
     popular: true,
   },
@@ -39,7 +39,7 @@ const planos = [
     descricao: "Sala fixa com exclusividade total",
     preco: 1890,
     unidade: "/mes",
-    features: ["Tudo do plano Turno", "Sala exclusiva 24h", "Personalizacao do espaco", "Agenda prioritaria", "Suporte dedicado", "Placa com seu nome"],
+    features: ["Tudo do plano Turno", "Sala exclusiva 24h", "Personalização do espaço", "Agenda prioritária", "Suporte dedicado", "Placa com seu nome"],
     cor: "dark",
     popular: false,
   },
@@ -189,7 +189,7 @@ export default function PlanoPage() {
           <svg className="w-5 h-5 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p className="text-sm text-amber-800">Voce ainda nao tem um plano ativo. Escolha abaixo o melhor para voce.</p>
+          <p className="text-sm text-amber-800">Você ainda não tem um plano ativo. Escolha abaixo o melhor para você.</p>
         </div>
       )}
 
@@ -284,7 +284,7 @@ export default function PlanoPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-500">
           <div className="flex items-start gap-2">
             <svg className="w-4 h-4 text-primary mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-            <span>Troque de plano a qualquer momento. A mudanca e imediata.</span>
+            <span>Troque de plano a qualquer momento. A mudança é imediata.</span>
           </div>
           <div className="flex items-start gap-2">
             <svg className="w-4 h-4 text-primary mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
@@ -292,7 +292,7 @@ export default function PlanoPage() {
           </div>
           <div className="flex items-start gap-2">
             <svg className="w-4 h-4 text-primary mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
-            <span>Pagamento via Pix ou cartao de credito.</span>
+            <span>Pagamento via Pix ou cartão de crédito.</span>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ export default function ContatoPage() {
               Fale <span className="text-primary-light">Conosco</span>
             </h1>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Estamos prontos para ajudar voce a encontrar a sala perfeita.
+              Estamos prontos para ajudar você a encontrar a sala perfeita.
             </p>
           </div>
         </section>
@@ -24,8 +24,8 @@ export default function ContatoPage() {
               <div>
                 <h2 className="text-2xl font-extrabold text-dark mb-6">Entre em contato</h2>
                 <p className="text-slate-600 mb-8 leading-relaxed">
-                  Tem duvidas sobre como funciona? Quer saber mais sobre os pacotes ou precisa de ajuda
-                  com sua reserva? Escolha o canal mais conveniente para voce.
+                  Tem dúvidas sobre como funciona? Quer saber mais sobre os pacotes ou precisa de ajuda
+                  com sua reserva? Escolha o canal mais conveniente para você.
                 </p>
 
                 <div className="space-y-5">
@@ -37,7 +37,7 @@ export default function ContatoPage() {
                     </div>
                     <div>
                       <h3 className="font-bold text-dark group-hover:text-green-700 transition-colors">WhatsApp</h3>
-                      <p className="text-sm text-slate-500">Resposta rapida em horario comercial</p>
+                      <p className="text-sm text-slate-500">Resposta rápida em horário comercial</p>
                     </div>
                   </a>
 
@@ -72,8 +72,8 @@ export default function ContatoPage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-bold text-dark">Horario de Atendimento</h3>
-                      <p className="text-sm text-slate-500">Seg a Sex, 08h as 18h</p>
+                      <h3 className="font-bold text-dark">Horário de Atendimento</h3>
+                      <p className="text-sm text-slate-500">Seg a Sex, 08h às 18h</p>
                     </div>
                   </div>
                 </div>
@@ -87,35 +87,35 @@ export default function ContatoPage() {
                       Como funciona o aluguel de salas?
                       <svg className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                     </summary>
-                    <p className="text-sm text-slate-500 py-3">Voce escolhe a sala, o horario e reserva online. Pague apenas pelas horas que usar, sem contrato de longo prazo.</p>
+                    <p className="text-sm text-slate-500 py-3">Você escolhe a sala, o horário e reserva online. Pague apenas pelas horas que usar, sem contrato de longo prazo.</p>
                   </details>
                   <details className="group">
                     <summary className="flex items-center justify-between cursor-pointer py-3 border-b border-slate-200 text-sm font-semibold text-dark">
                       Preciso levar equipamentos?
                       <svg className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                     </summary>
-                    <p className="text-sm text-slate-500 py-3">Nao! Todas as salas ja vem equipadas. Voce pode ver a lista de equipamentos na descricao de cada sala.</p>
+                    <p className="text-sm text-slate-500 py-3">Não! Todas as salas já vêm equipadas. Você pode ver a lista de equipamentos na descrição de cada sala.</p>
                   </details>
                   <details className="group">
                     <summary className="flex items-center justify-between cursor-pointer py-3 border-b border-slate-200 text-sm font-semibold text-dark">
                       Posso cancelar uma reserva?
                       <svg className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                     </summary>
-                    <p className="text-sm text-slate-500 py-3">Sim, cancelamentos com ate 24h de antecedencia sao gratuitos. Apos esse prazo, pode haver uma taxa.</p>
+                    <p className="text-sm text-slate-500 py-3">Sim, cancelamentos com até 24h de antecedência são gratuitos. Após esse prazo, pode haver uma taxa.</p>
                   </details>
                   <details className="group">
                     <summary className="flex items-center justify-between cursor-pointer py-3 border-b border-slate-200 text-sm font-semibold text-dark">
                       Quais formas de pagamento?
                       <svg className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                     </summary>
-                    <p className="text-sm text-slate-500 py-3">Aceitamos cartao de credito, debito, Pix e boleto bancario. Para planos mensais, oferecemos desconto no Pix.</p>
+                    <p className="text-sm text-slate-500 py-3">Aceitamos cartão de crédito, débito, Pix e boleto bancário. Para planos mensais, oferecemos desconto no Pix.</p>
                   </details>
                   <details className="group">
                     <summary className="flex items-center justify-between cursor-pointer py-3 text-sm font-semibold text-dark">
                       Tem fidelidade ou multa?
                       <svg className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                     </summary>
-                    <p className="text-sm text-slate-500 py-3">Nao. Sem contrato de fidelidade, sem multa. Voce pode parar de usar a plataforma quando quiser.</p>
+                    <p className="text-sm text-slate-500 py-3">Não. Sem contrato de fidelidade, sem multa. Você pode parar de usar a plataforma quando quiser.</p>
                   </details>
                 </div>
               </div>
@@ -136,8 +136,8 @@ export default function ContatoPage() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-dark text-lg">Nossa Localizacao</h3>
-                    <p className="text-sm text-slate-500">Visite nosso espaco e conheca as salas pessoalmente</p>
+                    <h3 className="font-extrabold text-dark text-lg">Nossa Localização</h3>
+                    <p className="text-sm text-slate-500">Visite nosso espaço e conheça as salas pessoalmente</p>
                   </div>
                 </div>
                 <a
@@ -161,7 +161,7 @@ export default function ContatoPage() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Localizacao MaciHub"
+                  title="Localização MaciHub"
                   className="w-full h-full"
                 />
               </div>

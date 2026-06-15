@@ -2,7 +2,7 @@ const steps = [
   {
     num: "01",
     title: "Busque sua sala",
-    desc: "Encontre a sala ideal por localizacao, especialidade e horario disponivel.",
+    desc: "Encontre a sala ideal por localização, especialidade e horário disponível.",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
     ),
@@ -10,7 +10,7 @@ const steps = [
   {
     num: "02",
     title: "Reserve online",
-    desc: "Agende por hora, turno ou mes. Pagamento seguro e confirmacao instantanea.",
+    desc: "Agende por hora, turno ou mês. Pagamento seguro e confirmação instantânea.",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
     ),
@@ -34,10 +34,10 @@ export function HowItWorks() {
             Como Funciona
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight mb-4">
-            Simples, rapido e sem burocracia
+            Simples, rápido e sem burocracia
           </h2>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-            Em tres passos voce ja esta atendendo em uma sala profissional.
+            Em três passos você já está atendendo em uma sala profissional.
           </p>
         </div>
 

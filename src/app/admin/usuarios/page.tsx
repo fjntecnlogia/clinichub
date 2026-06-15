@@ -16,7 +16,7 @@ const mockUsers: Profile[] = [
   { id: "2", nome: "Dr. Pedro Alves", email: "pedro.alves@email.com", tipo: "profissional", especialidade: "Cirurgia Geral", crm: "CRM-23456", telefone: "(84) 99999-0002", created_at: "2025-11-20" },
   { id: "3", nome: "Dra. Maria Lima", email: "maria.lima@email.com", tipo: "profissional", especialidade: "Psicologia", crm: "CRP-34567", telefone: "(84) 99999-0003", created_at: "2025-09-10" },
   { id: "4", nome: "Dr. Lucas Neto", email: "lucas.neto@email.com", tipo: "profissional", especialidade: "Ortopedia", crm: "CRM-45678", telefone: null, created_at: "2026-03-05" },
-  { id: "5", nome: "Clinica Vida Plena", email: "contato@vidaplena.com", tipo: "clinica", especialidade: "Multi-especialidade", crm: null, telefone: "(84) 3333-4444", created_at: "2026-06-01" },
+  { id: "5", nome: "Clínica Vida Plena", email: "contato@vidaplena.com", tipo: "clinica", especialidade: "Multi-especialidade", crm: null, telefone: "(84) 3333-4444", created_at: "2026-06-01" },
 ];
 
 async function getUsuarios() {
@@ -45,10 +45,10 @@ export default async function AdminUsuarios() {
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-extrabold text-dark">Usuarios</h1>
+          <h1 className="text-2xl font-extrabold text-dark">Usuários</h1>
           <p className="text-slate-500 text-sm mt-1">
-            {users.length} usuarios cadastrados
-            {!real && <span className="text-amber-500 ml-2">(dados de demonstracao)</span>}
+            {users.length} usuários cadastrados
+            {!real && <span className="text-amber-500 ml-2">(dados de demonstração)</span>}
           </p>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default async function AdminUsuarios() {
           <div className="text-2xl font-extrabold text-dark mt-1">{profissionais}</div>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-5">
-          <span className="text-sm text-slate-500">Clinicas</span>
+          <span className="text-sm text-slate-500">Clínicas</span>
           <div className="text-2xl font-extrabold text-dark mt-1">{clinicas}</div>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-5">
@@ -73,7 +73,7 @@ export default async function AdminUsuarios() {
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-xs text-slate-400 uppercase tracking-wider bg-slate-50">
-                <th className="px-6 py-3">Usuario</th>
+                <th className="px-6 py-3">Usuário</th>
                 <th className="px-6 py-3">Tipo</th>
                 <th className="px-6 py-3">Especialidade</th>
                 <th className="px-6 py-3">Registro</th>

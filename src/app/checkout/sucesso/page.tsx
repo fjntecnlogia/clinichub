@@ -22,7 +22,7 @@ export default function CheckoutSucessoPage() {
 
         <h1 className="text-2xl font-extrabold text-dark mb-2">Pedido Confirmado!</h1>
         <p className="text-slate-500 mb-8">
-          Seu pagamento foi processado com sucesso. Voce recebera um email com os detalhes do pedido e o codigo de rastreamento.
+          Seu pagamento foi processado com sucesso. Você receberá um e-mail com os detalhes do pedido e o código de rastreamento.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -36,7 +36,7 @@ export default function CheckoutSucessoPage() {
             href="/"
             className="px-6 py-3 bg-white border border-slate-200 hover:bg-slate-50 text-dark font-bold rounded-lg transition-colors text-sm"
           >
-            Voltar ao Inicio
+            Voltar ao Início
           </Link>
         </div>
       </div>

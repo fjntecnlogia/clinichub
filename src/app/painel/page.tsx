@@ -4,12 +4,12 @@ import { getPainelOverview } from "./actions";
 export default async function PainelPage() {
   const overview = await getPainelOverview();
 
-  const nome = overview?.nome ?? "Usuario";
+  const nome = overview?.nome ?? "Usuário";
   const hasData = overview?.hasData ?? false;
 
   const mockProximas = [
-    { sala: { nome: "Consultorio 3A" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", status: "Confirmada" },
-    { sala: { nome: "Consultorio 1B" }, data: "2026-06-14", hora_inicio: "14:00", hora_fim: "17:00", status: "Pendente" },
+    { sala: { nome: "Consultório 3A" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", status: "Confirmada" },
+    { sala: { nome: "Consultório 1B" }, data: "2026-06-14", hora_inicio: "14:00", hora_fim: "17:00", status: "Pendente" },
   ];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,10 +20,10 @@ export default async function PainelPage() {
       {/* Header + botoes de acao */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-extrabold text-dark">Ola, {nome}!</h1>
+          <h1 className="text-2xl font-extrabold text-dark">Olá, {nome}!</h1>
           <p className="text-slate-500 text-sm mt-1">
-            Aqui esta o resumo da sua conta.
-            {!hasData && <span className="text-amber-500 ml-2">(dados de demonstracao)</span>}
+            Aqui está o resumo da sua conta.
+            {!hasData && <span className="text-amber-500 ml-2">(dados de demonstração)</span>}
           </p>
         </div>
         <div className="flex gap-5">
@@ -63,12 +63,12 @@ export default async function PainelPage() {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
         <div className="bg-white rounded-xl border border-slate-200 p-5">
-          <span className="text-sm text-slate-500">Reservas este mes</span>
+          <span className="text-sm text-slate-500">Reservas este mês</span>
           <div className="text-3xl font-extrabold text-dark mt-1">{hasData ? overview!.reservasMes : 8}</div>
           <span className="text-xs text-accent font-semibold">reservas ativas</span>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-5">
-          <span className="text-sm text-slate-500">Proximas reservas</span>
+          <span className="text-sm text-slate-500">Próximas reservas</span>
           <div className="text-3xl font-extrabold text-primary mt-1">{proximas.length}</div>
           <span className="text-xs text-slate-400">agendadas</span>
         </div>
@@ -82,7 +82,7 @@ export default async function PainelPage() {
       {/* Proximas reservas */}
       <div className="bg-white rounded-xl border border-slate-200">
         <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-          <h2 className="font-bold text-dark">Proximas Reservas</h2>
+          <h2 className="font-bold text-dark">Próximas Reservas</h2>
           <Link href="/painel/reservas" className="text-sm text-primary font-semibold hover:text-primary-dark">Ver todas</Link>
         </div>
         {proximas.length === 0 ? (

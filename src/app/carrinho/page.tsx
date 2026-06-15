@@ -15,7 +15,7 @@ export default function CarrinhoPage() {
   async function calcularFrete() {
     const cepClean = cep.replace(/\D/g, "");
     if (cepClean.length !== 8) {
-      setFreteError("CEP invalido");
+      setFreteError("CEP inválido");
       return;
     }
     setFreteLoading(true);
@@ -128,7 +128,7 @@ export default function CarrinhoPage() {
 
             {items.length === 0 && (
               <div className="bg-white rounded-xl border border-slate-200 p-12 text-center">
-                <p className="text-slate-400 mb-4">Seu carrinho esta vazio</p>
+                <p className="text-slate-400 mb-4">Seu carrinho está vazio</p>
                 <Link href="/loja" className="text-primary font-semibold hover:text-primary-dark">Ver produtos</Link>
               </div>
             )}
@@ -165,10 +165,10 @@ export default function CarrinhoPage() {
                   <div className="flex justify-between text-sm">
                     <span className="text-green-700 font-medium">{frete.nome}</span>
                     <span className="font-bold text-green-700">
-                      {frete.preco === 0 ? "Gratis" : `R$ ${frete.preco.toFixed(2)}`}
+                      {frete.preco === 0 ? "Grátis" : `R$ ${frete.preco.toFixed(2)}`}
                     </span>
                   </div>
-                  <p className="text-xs text-green-600 mt-1">Entrega em ate {frete.prazo} dias uteis</p>
+                  <p className="text-xs text-green-600 mt-1">Entrega em até {frete.prazo} dias úteis</p>
                 </div>
               )}
             </div>
@@ -187,12 +187,12 @@ export default function CarrinhoPage() {
                     {freteValor === null
                       ? "Calcular acima"
                       : freteValor === 0
-                        ? "Gratis"
+                        ? "Grátis"
                         : `R$ ${freteValor.toFixed(2)}`}
                   </span>
                 </div>
                 {subtotal > 0 && subtotal < 299 && !frete && (
-                  <p className="text-xs text-slate-400">Frete gratis acima de R$ 299,00</p>
+                  <p className="text-xs text-slate-400">Frete grátis acima de R$ 299,00</p>
                 )}
               </div>
               <div className="border-t border-slate-100 pt-4 flex justify-between mb-6">
@@ -210,7 +210,7 @@ export default function CarrinhoPage() {
                 <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
-                <p className="text-[10px] text-slate-400">Pagamento seguro via Stripe (Pix ou Cartao)</p>
+                <p className="text-[10px] text-slate-400">Pagamento seguro via Stripe (Pix ou Cartão)</p>
               </div>
             </div>
           </div>

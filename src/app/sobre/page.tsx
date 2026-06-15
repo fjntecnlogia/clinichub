@@ -13,7 +13,7 @@ export default function SobrePage() {
               Sobre o <span className="text-primary-light">MaciHub</span>
             </h1>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Transformando a forma como profissionais de saude acessam infraestrutura de qualidade.
+              Transformando a forma como profissionais de saúde acessam infraestrutura de qualidade.
             </p>
           </div>
         </section>
@@ -22,13 +22,13 @@ export default function SobrePage() {
           <div className="max-w-4xl mx-auto px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
               <div>
-                <h2 className="text-3xl font-extrabold text-dark mb-4">Nossa Missao</h2>
+                <h2 className="text-3xl font-extrabold text-dark mb-4">Nossa Missão</h2>
                 <p className="text-slate-600 leading-relaxed mb-4">
-                  Democratizar o acesso a salas medicas de alto padrao para profissionais de saude que querem
-                  atender seus pacientes sem o peso de manter uma clinica propria.
+                  Democratizar o acesso a salas médicas de alto padrão para profissionais de saúde que querem
+                  atender seus pacientes sem o peso de manter uma clínica própria.
                 </p>
                 <p className="text-slate-600 leading-relaxed">
-                  Acreditamos que todo profissional de saude merece um espaco digno para exercer sua profissao,
+                  Acreditamos que todo profissional de saúde merece um espaço digno para exercer sua profissão,
                   sem compromissos de longo prazo ou investimentos iniciais proibitivos.
                 </p>
               </div>
@@ -63,8 +63,8 @@ export default function SobrePage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-bold text-dark">98% de satisfacao</h3>
-                      <p className="text-sm text-slate-500">Avaliacao dos usuarios</p>
+                      <h3 className="font-bold text-dark">98% de satisfação</h3>
+                      <p className="text-sm text-slate-500">Avaliação dos usuários</p>
                     </div>
                   </div>
                 </div>
@@ -83,8 +83,8 @@ export default function SobrePage() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
                     </svg>
                   </div>
-                  <h3 className="font-bold text-dark mb-2">Excelencia</h3>
-                  <p className="text-sm text-slate-500">Salas com padrao hospitalar, equipadas e higienizadas para cada atendimento.</p>
+                  <h3 className="font-bold text-dark mb-2">Excelência</h3>
+                  <p className="text-sm text-slate-500">Salas com padrão hospitalar, equipadas e higienizadas para cada atendimento.</p>
                 </div>
                 <div className="bg-slate-50 rounded-xl p-6 text-center">
                   <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -93,7 +93,7 @@ export default function SobrePage() {
                     </svg>
                   </div>
                   <h3 className="font-bold text-dark mb-2">Flexibilidade</h3>
-                  <p className="text-sm text-slate-500">Sem contratos longos. Alugue por hora, turno ou mes — do seu jeito.</p>
+                  <p className="text-sm text-slate-500">Sem contratos longos. Alugue por hora, turno ou mês — do seu jeito.</p>
                 </div>
                 <div className="bg-slate-50 rounded-xl p-6 text-center">
                   <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -102,15 +102,15 @@ export default function SobrePage() {
                     </svg>
                   </div>
                   <h3 className="font-bold text-dark mb-2">Acessibilidade</h3>
-                  <p className="text-sm text-slate-500">Precos justos para que mais profissionais possam atender com qualidade.</p>
+                  <p className="text-sm text-slate-500">Preços justos para que mais profissionais possam atender com qualidade.</p>
                 </div>
               </div>
             </div>
 
             <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 lg:p-12 text-center">
-              <h2 className="text-2xl font-extrabold text-dark mb-3">Pronto para comecar?</h2>
+              <h2 className="text-2xl font-extrabold text-dark mb-3">Pronto para começar?</h2>
               <p className="text-slate-600 mb-6 max-w-lg mx-auto">
-                Encontre a sala ideal para seus atendimentos e comece a atender seus pacientes em um espaco de qualidade.
+                Encontre a sala ideal para seus atendimentos e comece a atender seus pacientes em um espaço de qualidade.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link href="/#pacotes" className="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-colors">

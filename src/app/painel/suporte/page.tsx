@@ -26,7 +26,7 @@ export default function SuportePage() {
   const [sending, setSending] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showNew, setShowNew] = useState(false);
-  const [novoAssunto, setNovoAssunto] = useState("Duvida geral");
+  const [novoAssunto, setNovoAssunto] = useState("Dúvida geral");
   const [novaMensagem, setNovaMensagem] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -102,7 +102,7 @@ export default function SuportePage() {
       });
       setShowNew(false);
       setNovaMensagem("");
-      setNovoAssunto("Duvida geral");
+      setNovoAssunto("Dúvida geral");
       await loadConversas();
       await loadMsgs(conv.id);
     }
@@ -271,11 +271,11 @@ export default function SuportePage() {
                   onChange={(e) => setNovoAssunto(e.target.value)}
                   className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
                 >
-                  <option>Duvida geral</option>
+                  <option>Dúvida geral</option>
                   <option>Reservas</option>
                   <option>Pagamento</option>
-                  <option>Problemas tecnicos</option>
-                  <option>Sugestao</option>
+                  <option>Problemas técnicos</option>
+                  <option>Sugestão</option>
                   <option>Outro</option>
                 </select>
               </div>
@@ -286,7 +286,7 @@ export default function SuportePage() {
                   onChange={(e) => setNovaMensagem(e.target.value)}
                   required
                   rows={3}
-                  placeholder="Descreva sua duvida ou problema..."
+                  placeholder="Descreva sua dúvida ou problema..."
                   className="w-full px-3 py-2.5 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none resize-none"
                 />
               </div>

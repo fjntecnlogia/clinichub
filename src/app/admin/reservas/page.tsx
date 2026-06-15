@@ -15,11 +15,11 @@ interface Reserva {
 }
 
 const mockReservas: Reserva[] = [
-  { id: "1", sala: { nome: "Consultorio 3A" }, profile: { nome: "Dra. Ana Costa", email: "ana.costa@email.com" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Confirmada", notas: null, created_at: "" },
-  { id: "2", sala: { nome: "Sala Cirurgica 1" }, profile: { nome: "Dr. Pedro Alves", email: "pedro.alves@email.com" }, data: "2026-06-11", hora_inicio: "14:00", hora_fim: "18:00", valor: 480, status: "Pendente", notas: null, created_at: "" },
-  { id: "3", sala: { nome: "Consultorio 1B" }, profile: { nome: "Dra. Maria Lima", email: "maria.lima@email.com" }, data: "2026-06-12", hora_inicio: "09:00", hora_fim: "11:00", valor: 90, status: "Confirmada", notas: null, created_at: "" },
+  { id: "1", sala: { nome: "Consultório 3A" }, profile: { nome: "Dra. Ana Costa", email: "ana.costa@email.com" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Confirmada", notas: null, created_at: "" },
+  { id: "2", sala: { nome: "Sala Cirúrgica 1" }, profile: { nome: "Dr. Pedro Alves", email: "pedro.alves@email.com" }, data: "2026-06-11", hora_inicio: "14:00", hora_fim: "18:00", valor: 480, status: "Pendente", notas: null, created_at: "" },
+  { id: "3", sala: { nome: "Consultório 1B" }, profile: { nome: "Dra. Maria Lima", email: "maria.lima@email.com" }, data: "2026-06-12", hora_inicio: "09:00", hora_fim: "11:00", valor: 90, status: "Confirmada", notas: null, created_at: "" },
   { id: "4", sala: { nome: "Sala de Exames 2" }, profile: { nome: "Dr. Lucas Neto", email: "lucas.neto@email.com" }, data: "2026-06-12", hora_inicio: "13:00", hora_fim: "17:00", valor: 320, status: "Cancelada", notas: null, created_at: "" },
-  { id: "5", sala: { nome: "Consultorio 5C" }, profile: { nome: "Dra. Julia Ramos", email: "julia.ramos@email.com" }, data: "2026-06-13", hora_inicio: "08:00", hora_fim: "10:00", valor: 120, status: "Confirmada", notas: null, created_at: "" },
+  { id: "5", sala: { nome: "Consultório 5C" }, profile: { nome: "Dra. Julia Ramos", email: "julia.ramos@email.com" }, data: "2026-06-13", hora_inicio: "08:00", hora_fim: "10:00", valor: 120, status: "Confirmada", notas: null, created_at: "" },
 ];
 
 async function getReservas() {
@@ -55,7 +55,7 @@ export default async function AdminReservas({ searchParams }: { searchParams: Pr
           <h1 className="text-2xl font-extrabold text-dark">Reservas</h1>
           <p className="text-slate-500 text-sm mt-1">
             {reservas.length} reservas no total
-            {!real && <span className="text-amber-500 ml-2">(dados de demonstracao)</span>}
+            {!real && <span className="text-amber-500 ml-2">(dados de demonstração)</span>}
           </p>
         </div>
       </div>
@@ -78,7 +78,7 @@ export default async function AdminReservas({ searchParams }: { searchParams: Pr
       </div>
 
       <div className="flex gap-2 mb-6">
-        {["Todas", "Confirmada", "Pendente", "Cancelada", "Concluida"].map((t) => (
+        {["Todas", "Confirmada", "Pendente", "Cancelada", "Concluída"].map((t) => (
           <Link
             key={t}
             href={t === "Todas" ? "/admin/reservas" : `/admin/reservas?status=${t}`}
@@ -99,7 +99,7 @@ export default async function AdminReservas({ searchParams }: { searchParams: Pr
                 <th className="px-6 py-3">Sala</th>
                 <th className="px-6 py-3">Profissional</th>
                 <th className="px-6 py-3">Data</th>
-                <th className="px-6 py-3">Horario</th>
+                <th className="px-6 py-3">Horário</th>
                 <th className="px-6 py-3">Valor</th>
                 <th className="px-6 py-3">Status</th>
               </tr>
@@ -126,7 +126,7 @@ export default async function AdminReservas({ searchParams }: { searchParams: Pr
                       <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
                         r.status === "Confirmada" ? "bg-green-50 text-green-700"
                           : r.status === "Pendente" ? "bg-amber-50 text-amber-700"
-                          : r.status === "Concluida" ? "bg-blue-50 text-blue-700"
+                          : r.status === "Concluída" ? "bg-blue-50 text-blue-700"
                           : "bg-red-50 text-red-600"
                       }`}>
                         {r.status}
