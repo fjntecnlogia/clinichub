@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { Suspense, useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
@@ -29,6 +29,14 @@ const HORARIOS = [
 ];
 
 export default function MinhasReservas() {
+  return (
+    <Suspense fallback={<div className="p-8 flex items-center justify-center min-h-[50vh]"><div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" /></div>}>
+      <MinhasReservasContent />
+    </Suspense>
+  );
+}
+
+function MinhasReservasContent() {
   const searchParams = useSearchParams();
   const pagamento = searchParams.get("pagamento");
 
