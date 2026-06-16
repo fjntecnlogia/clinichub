@@ -4,13 +4,17 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
 
+type Toast = { type: "error" | "warning" | "info"; message: string } | null;
+
 export default function CarrinhoPage() {
   const { items, updateQty, removeItem, subtotal, totalItems } = useCart();
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [toast, setToast] = useState<Toast>(null);
 
   async function handleCheckout() {
     if (items.length === 0) return;
     setCheckoutLoading(true);
+    setToast(null);
     try {
       const res = await fetch("/api/stripe/checkout-pedido", {
         method: "POST",
@@ -28,17 +32,17 @@ export default function CarrinhoPage() {
       });
       const data = await res.json();
       if (res.status === 401) {
-        alert("Você precisa estar logado para finalizar a compra.");
-        window.location.href = "/login?redirect=/carrinho";
+        setToast({ type: "warning", message: "Voce precisa estar logado para finalizar a compra. Redirecionando..." });
+        setTimeout(() => { window.location.href = "/login?redirect=/carrinho"; }, 2000);
         return;
       }
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert(data.error || "Erro ao iniciar pagamento");
+        setToast({ type: "error", message: data.error || "Erro ao iniciar pagamento" });
       }
     } catch {
-      alert("Erro ao conectar com o servidor");
+      setToast({ type: "error", message: "Erro ao conectar com o servidor. Tente novamente." });
     }
     setCheckoutLoading(false);
   }
@@ -155,6 +159,42 @@ export default function CarrinhoPage() {
           </div>
         </div>
       </div>
+
+      {toast && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setToast(null)}>
+          <div className="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 text-center" onClick={(e) => e.stopPropagation()}>
+            <div className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 ${
+              toast.type === "error" ? "bg-red-100" : toast.type === "warning" ? "bg-amber-100" : "bg-blue-100"
+            }`}>
+              {toast.type === "error" ? (
+                <svg className="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : toast.type === "warning" ? (
+                <svg className="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+              ) : (
+                <svg className="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+              )}
+            </div>
+            <h3 className="text-lg font-extrabold text-dark mb-2">
+              {toast.type === "error" ? "Ops!" : toast.type === "warning" ? "Atenção" : "Informação"}
+            </h3>
+            <p className="text-sm text-slate-500 mb-6">{toast.message}</p>
+            <button
+              onClick={() => setToast(null)}
+              className={`w-full py-3 font-bold rounded-lg transition-colors text-sm text-white ${
+                toast.type === "error" ? "bg-red-500 hover:bg-red-600" : toast.type === "warning" ? "bg-amber-500 hover:bg-amber-600" : "bg-primary hover:bg-primary-dark"
+              }`}
+            >
+              Entendi
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

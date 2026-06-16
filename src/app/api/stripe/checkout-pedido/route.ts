@@ -14,12 +14,6 @@ interface ItemPayload {
 interface CheckoutPayload {
   items: ItemPayload[];
   frete: number;
-  endereco?: {
-    rua: string;
-    cidade: string;
-    estado: string;
-    cep: string;
-  };
 }
 
 export async function POST(req: NextRequest) {
@@ -34,7 +28,7 @@ export async function POST(req: NextRequest) {
   if (isErrorResponse(auth)) return auth;
 
   try {
-    const { items, frete, endereco } = (await req.json()) as CheckoutPayload;
+    const { items, frete } = (await req.json()) as CheckoutPayload;
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: "Carrinho vazio" }, { status: 400 });
@@ -54,7 +48,6 @@ export async function POST(req: NextRequest) {
         frete: frete || 0,
         total,
         status: "Pendente",
-        endereco: endereco || null,
       })
       .select("id")
       .single();
