@@ -60,7 +60,8 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (pedidoErr) {
-      return NextResponse.json({ error: "Erro ao criar pedido" }, { status: 500 });
+      console.error("Supabase pedido insert error:", pedidoErr);
+      return NextResponse.json({ error: `Erro ao criar pedido: ${pedidoErr.message}` }, { status: 500 });
     }
 
     const origin = req.headers.get("origin") || "http://localhost:3000";
