@@ -6,40 +6,7 @@ import { useCart } from "@/lib/cart-context";
 
 export default function CarrinhoPage() {
   const { items, updateQty, removeItem, subtotal, totalItems } = useCart();
-  const [cep, setCep] = useState("");
-  const [frete, setFrete] = useState<{ nome: string; preco: number; prazo: number } | null>(null);
-  const [freteLoading, setFreteLoading] = useState(false);
-  const [freteError, setFreteError] = useState("");
   const [checkoutLoading, setCheckoutLoading] = useState(false);
-
-  async function calcularFrete() {
-    const cepClean = cep.replace(/\D/g, "");
-    if (cepClean.length !== 8) {
-      setFreteError("CEP inválido");
-      return;
-    }
-    setFreteLoading(true);
-    setFreteError("");
-    try {
-      const res = await fetch("/api/shipping", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cep: cepClean,
-          items: items.map((i) => ({ qty: i.qty, preco: i.preco })),
-        }),
-      });
-      const data = await res.json();
-      if (data.error) {
-        setFreteError(data.error);
-      } else {
-        setFrete(data);
-      }
-    } catch {
-      setFreteError("Erro ao calcular frete");
-    }
-    setFreteLoading(false);
-  }
 
   async function handleCheckout() {
     if (items.length === 0) return;
@@ -56,7 +23,7 @@ export default function CarrinhoPage() {
             qty: i.qty,
             foto_url: i.foto_url,
           })),
-          frete: frete?.preco ?? 0,
+          frete: 0,
         }),
       });
       const data = await res.json();
@@ -75,9 +42,6 @@ export default function CarrinhoPage() {
     }
     setCheckoutLoading(false);
   }
-
-  const freteValor = frete?.preco ?? (subtotal >= 299 ? 0 : null);
-  const total = subtotal + (freteValor ?? 0);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -140,42 +104,21 @@ export default function CarrinhoPage() {
           </div>
 
           <div className="space-y-4">
-            {/* Calcular frete */}
+            {/* Entrega */}
             <div className="bg-white rounded-xl border border-slate-200 p-5">
-              <h3 className="font-bold text-dark mb-3 text-sm">Calcular frete</h3>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={cep}
-                  onChange={(e) => {
-                    let v = e.target.value.replace(/\D/g, "");
-                    if (v.length > 5) v = v.slice(0, 5) + "-" + v.slice(5, 8);
-                    setCep(v);
-                  }}
-                  maxLength={9}
-                  placeholder="00000-000"
-                  className="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                />
-                <button
-                  onClick={calcularFrete}
-                  disabled={freteLoading || items.length === 0}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 text-dark font-semibold rounded-lg text-sm transition-colors"
-                >
-                  {freteLoading ? "..." : "Calcular"}
-                </button>
-              </div>
-              {freteError && <p className="text-red-500 text-xs mt-2">{freteError}</p>}
-              {frete && (
-                <div className="mt-3 p-3 bg-green-50 rounded-lg">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-green-700 font-medium">{frete.nome}</span>
-                    <span className="font-bold text-green-700">
-                      {frete.preco === 0 ? "Grátis" : `R$ ${frete.preco.toFixed(2)}`}
-                    </span>
-                  </div>
-                  <p className="text-xs text-green-600 mt-1">Entrega em até {frete.prazo} dias úteis</p>
+              <h3 className="font-bold text-dark mb-3 text-sm">Entrega</h3>
+              <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.15c0 .415.336.75.75.75z" />
+                  </svg>
                 </div>
-              )}
+                <div>
+                  <p className="font-semibold text-blue-800 text-sm">Retirada no Balcão</p>
+                  <p className="text-xs text-blue-600">Retire seu pedido no Instituto Macieski</p>
+                </div>
+                <span className="ml-auto text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full">Grátis</span>
+              </div>
             </div>
 
             {/* Resumo */}
@@ -187,35 +130,26 @@ export default function CarrinhoPage() {
                   <span className="font-medium">R$ {subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Frete</span>
-                  <span className={`font-medium ${freteValor === 0 ? "text-green-600" : ""}`}>
-                    {freteValor === null
-                      ? "Calcular acima"
-                      : freteValor === 0
-                        ? "Grátis"
-                        : `R$ ${freteValor.toFixed(2)}`}
-                  </span>
+                  <span className="text-slate-500">Entrega</span>
+                  <span className="font-medium text-green-600">Retirada no Balcão</span>
                 </div>
-                {subtotal > 0 && subtotal < 299 && !frete && (
-                  <p className="text-xs text-slate-400">Frete grátis acima de R$ 299,00</p>
-                )}
               </div>
               <div className="border-t border-slate-100 pt-4 flex justify-between mb-6">
                 <span className="font-bold text-dark">Total</span>
-                <span className="text-xl font-extrabold text-primary">R$ {total.toFixed(2)}</span>
+                <span className="text-xl font-extrabold text-primary">R$ {subtotal.toFixed(2)}</span>
               </div>
               <button
                 onClick={handleCheckout}
                 disabled={items.length === 0 || checkoutLoading}
                 className="w-full py-3 bg-primary hover:bg-primary-dark disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold rounded-lg transition-colors text-sm"
               >
-                {checkoutLoading ? "Processando..." : "Finalizar Compra"}
+                {checkoutLoading ? "Processando..." : "Pagar e Retirar"}
               </button>
               <div className="flex items-center justify-center gap-2 mt-3">
                 <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
-                <p className="text-[10px] text-slate-400">Pagamento seguro via Stripe (Pix ou Cartão)</p>
+                <p className="text-[10px] text-slate-400">Pagamento seguro via Stripe</p>
               </div>
             </div>
           </div>
