@@ -27,22 +27,14 @@ export default async function AdminDashboard() {
   const data = await getDashboardData();
 
   const kpis = [
-    { label: "Salas Cadastradas", value: data.hasData ? String(data.totalSalas) : "6", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
-    { label: "Reservas Recentes", value: data.hasData ? String(data.reservas.length) : "127", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
-    { label: "Usuários", value: data.hasData ? String(data.totalUsuarios) : "34", icon: "M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" },
-    { label: "Produtos", value: data.hasData ? String(data.totalProdutos) : "6", icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" },
-  ];
-
-  const mockReservas = [
-    { id: "1", sala: { nome: "Consultório 3A" }, profile: { nome: "Dra. Ana Costa" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Confirmada" },
-    { id: "2", sala: { nome: "Sala Cirúrgica 1" }, profile: { nome: "Dr. Pedro Alves" }, data: "2026-06-11", hora_inicio: "14:00", hora_fim: "18:00", valor: 480, status: "Pendente" },
-    { id: "3", sala: { nome: "Consultório 1B" }, profile: { nome: "Dra. Maria Lima" }, data: "2026-06-12", hora_inicio: "09:00", hora_fim: "11:00", valor: 90, status: "Confirmada" },
-    { id: "4", sala: { nome: "Sala de Exames 2" }, profile: { nome: "Dr. Lucas Neto" }, data: "2026-06-12", hora_inicio: "13:00", hora_fim: "17:00", valor: 320, status: "Cancelada" },
-    { id: "5", sala: { nome: "Consultório 5C" }, profile: { nome: "Dra. Julia Ramos" }, data: "2026-06-13", hora_inicio: "08:00", hora_fim: "10:00", valor: 120, status: "Confirmada" },
+    { label: "Salas Cadastradas", value: String(data.hasData ? data.totalSalas : 0), icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" },
+    { label: "Reservas Recentes", value: String(data.hasData ? data.reservas.length : 0), icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
+    { label: "Usuários", value: String(data.hasData ? data.totalUsuarios : 0), icon: "M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" },
+    { label: "Produtos", value: String(data.hasData ? data.totalProdutos : 0), icon: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" },
   ];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const reservas: any[] = data.hasData && data.reservas.length > 0 ? data.reservas : mockReservas;
+  const reservas: any[] = data.hasData ? data.reservas : [];
 
   return (
     <div className="p-8">
@@ -50,7 +42,7 @@ export default async function AdminDashboard() {
         <h1 className="text-2xl font-extrabold text-dark">Dashboard</h1>
         <p className="text-slate-500 text-sm mt-1">
           Visão geral da plataforma
-          {!data.hasData && <span className="text-amber-500 ml-2">(dados de demonstração)</span>}
+          {!data.hasData && <span className="text-slate-400 ml-2">(sem dados ainda)</span>}
         </p>
       </div>
 

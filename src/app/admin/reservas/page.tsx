@@ -49,13 +49,7 @@ const MONTHS = [
   "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
 ];
 
-const mockReservas: Reserva[] = [
-  { id: "1", sala: { nome: "Consultório 3A" }, profile: { nome: "Dra. Ana Costa", email: "ana.costa@email.com" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Confirmada", notas: null, created_at: "" },
-  { id: "2", sala: { nome: "Sala Cirúrgica 1" }, profile: { nome: "Dr. Pedro Alves", email: "pedro.alves@email.com" }, data: "2026-06-11", hora_inicio: "14:00", hora_fim: "18:00", valor: 480, status: "Pendente", notas: null, created_at: "" },
-  { id: "3", sala: { nome: "Consultório 1B" }, profile: { nome: "Dra. Maria Lima", email: "maria.lima@email.com" }, data: "2026-06-12", hora_inicio: "09:00", hora_fim: "11:00", valor: 90, status: "Confirmada", notas: null, created_at: "" },
-  { id: "4", sala: { nome: "Sala de Exames 2" }, profile: { nome: "Dr. Lucas Neto", email: "lucas.neto@email.com" }, data: "2026-06-12", hora_inicio: "13:00", hora_fim: "17:00", valor: 320, status: "Cancelada", notas: null, created_at: "" },
-  { id: "5", sala: { nome: "Consultório 5C" }, profile: { nome: "Dra. Julia Ramos", email: "julia.ramos@email.com" }, data: "2026-06-13", hora_inicio: "08:00", hora_fim: "10:00", valor: 120, status: "Confirmada", notas: null, created_at: "" },
-];
+// sem dados mock — carrega direto do Supabase
 
 function formatTime(t: string) {
   return t.slice(0, 5);
@@ -72,8 +66,7 @@ function formatDateBR(dateStr: string) {
 
 export default function AdminReservas() {
   const today = new Date();
-  const [reservas, setReservas] = useState<Reserva[]>(mockReservas);
-  const [isReal, setIsReal] = useState(false);
+  const [reservas, setReservas] = useState<Reserva[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [tab, setTab] = useState("Todas");
@@ -92,9 +85,8 @@ export default function AdminReservas() {
         .select("*, sala:salas(nome), profile:profiles(nome, email)")
         .order("data", { ascending: false });
 
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         setReservas(data as Reserva[]);
-        setIsReal(true);
       }
     } catch { /* fallback to mock */ }
     setLoading(false);
@@ -349,7 +341,7 @@ export default function AdminReservas() {
           <h1 className="text-2xl font-extrabold text-dark">Reservas</h1>
           <p className="text-slate-500 text-sm mt-1">
             {reservas.length} reserva{reservas.length !== 1 ? "s" : ""} no total
-            {!isReal && !loading && <span className="text-amber-500 ml-2">(dados de demonstração)</span>}
+            {!loading && reservas.length === 0 && <span className="text-slate-400 ml-2">(sem reservas ainda)</span>}
           </p>
         </div>
         <div className="flex bg-white rounded-lg border border-slate-200 p-0.5">

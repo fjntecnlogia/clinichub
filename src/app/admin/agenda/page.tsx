@@ -47,26 +47,7 @@ const MONTHS = [
   "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
 ];
 
-const mockSalas: Sala[] = [
-  { id: "1", nome: "Consultório 1A", tipo: "Consultório", preco_hora: 90, status: "Disponível" },
-  { id: "2", nome: "Consultório 1B", tipo: "Consultório", preco_hora: 90, status: "Disponível" },
-  { id: "3", nome: "Consultório 3A", tipo: "Consultório", preco_hora: 55, status: "Disponível" },
-  { id: "4", nome: "Sala Cirúrgica 1", tipo: "Cirúrgica", preco_hora: 120, status: "Manutenção" },
-  { id: "5", nome: "Sala de Exames 2", tipo: "Exames", preco_hora: 80, status: "Disponível" },
-  { id: "6", nome: "Consultório 5C", tipo: "Consultório", preco_hora: 60, status: "Disponível" },
-];
-
-const mockReservas: Reserva[] = [
-  { id: "1", sala_id: "1", sala: { id: "1", nome: "Consultório 1A" }, profile: { nome: "Dra. Ana Costa", email: "ana@email.com" }, data: "2026-06-16", hora_inicio: "08:00", hora_fim: "12:00", valor: 360, status: "Confirmada" },
-  { id: "2", sala_id: "4", sala: { id: "4", nome: "Sala Cirúrgica 1" }, profile: { nome: "Dr. Pedro Alves", email: "pedro@email.com" }, data: "2026-06-16", hora_inicio: "14:00", hora_fim: "18:00", valor: 480, status: "Pendente" },
-  { id: "3", sala_id: "2", sala: { id: "2", nome: "Consultório 1B" }, profile: { nome: "Dra. Maria Lima", email: "maria@email.com" }, data: "2026-06-17", hora_inicio: "09:00", hora_fim: "11:00", valor: 180, status: "Confirmada" },
-  { id: "4", sala_id: "5", sala: { id: "5", nome: "Sala de Exames 2" }, profile: { nome: "Dr. Lucas Neto", email: "lucas@email.com" }, data: "2026-06-18", hora_inicio: "13:00", hora_fim: "17:00", valor: 320, status: "Confirmada" },
-  { id: "5", sala_id: "3", sala: { id: "3", nome: "Consultório 3A" }, profile: { nome: "Dra. Julia Ramos", email: "julia@email.com" }, data: "2026-06-19", hora_inicio: "08:00", hora_fim: "10:00", valor: 110, status: "Pendente" },
-  { id: "6", sala_id: "1", sala: { id: "1", nome: "Consultório 1A" }, profile: { nome: "Dr. Marcos Silva", email: "marcos@email.com" }, data: "2026-06-20", hora_inicio: "09:00", hora_fim: "13:00", valor: 360, status: "Confirmada" },
-  { id: "7", sala_id: "6", sala: { id: "6", nome: "Consultório 5C" }, profile: { nome: "Dra. Carla Dias", email: "carla@email.com" }, data: "2026-06-20", hora_inicio: "14:00", hora_fim: "16:00", valor: 120, status: "Confirmada" },
-  { id: "8", sala_id: "2", sala: { id: "2", nome: "Consultório 1B" }, profile: { nome: "Dr. Roberto Azevedo", email: "roberto@email.com" }, data: "2026-06-23", hora_inicio: "08:00", hora_fim: "12:00", valor: 360, status: "Pendente" },
-  { id: "9", sala_id: "4", sala: { id: "4", nome: "Sala Cirúrgica 1" }, profile: { nome: "Dra. Fernanda Rocha", email: "fernanda@email.com" }, data: "2026-06-25", hora_inicio: "07:00", hora_fim: "13:00", valor: 720, status: "Confirmada" },
-];
+// sem dados mock — carrega direto do Supabase
 
 function formatTime(t: string) {
   return t.slice(0, 5);
@@ -92,10 +73,9 @@ export default function AdminAgenda() {
   const [filterSala, setFilterSala] = useState<string>("todas");
   const [viewMode, setViewMode] = useState<"mes" | "semana">("mes");
 
-  const [salas, setSalas] = useState<Sala[]>(mockSalas);
-  const [reservas, setReservas] = useState<Reserva[]>(mockReservas);
+  const [salas, setSalas] = useState<Sala[]>([]);
+  const [reservas, setReservas] = useState<Reserva[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isReal, setIsReal] = useState(false);
 
   const [weekStart, setWeekStart] = useState(() => {
     const d = new Date();
@@ -111,10 +91,9 @@ export default function AdminAgenda() {
         supabase.from("salas").select("id, nome, tipo, preco_hora, status").order("nome"),
         supabase.from("reservas").select("*, sala:salas(id, nome), profile:profiles(nome, email, telefone)").order("data"),
       ]);
-      if (!salasRes.error && salasRes.data?.length) setSalas(salasRes.data);
-      if (!reservasRes.error && reservasRes.data?.length) {
+      if (!salasRes.error && salasRes.data) setSalas(salasRes.data);
+      if (!reservasRes.error && reservasRes.data) {
         setReservas(reservasRes.data as Reserva[]);
-        setIsReal(true);
       }
     } catch { /* fallback to mock */ }
     setLoading(false);
@@ -363,7 +342,7 @@ export default function AdminAgenda() {
           </h1>
           <p className="text-slate-500 text-sm mt-1">
             Visualize a ocupação das salas por data e horário
-            {!isReal && <span className="text-amber-500 ml-2">(dados de demonstração)</span>}
+            {!loading && reservas.length === 0 && <span className="text-slate-400 ml-2">(sem agendamentos ainda)</span>}
           </p>
         </div>
 

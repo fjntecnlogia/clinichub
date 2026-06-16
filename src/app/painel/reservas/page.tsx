@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 interface Sala {
@@ -22,19 +23,15 @@ interface Reserva {
   sala: { nome: string } | null;
 }
 
-const mockReservas: Reserva[] = [
-  { id: "1", sala: { nome: "Consultório 3A" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Confirmada", notas: null },
-  { id: "2", sala: { nome: "Consultório 1B" }, data: "2026-06-14", hora_inicio: "14:00", hora_fim: "17:00", valor: 135, status: "Pendente", notas: null },
-  { id: "3", sala: { nome: "Consultório 3A" }, data: "2026-06-07", hora_inicio: "08:00", hora_fim: "12:00", valor: 180, status: "Concluída", notas: null },
-  { id: "4", sala: { nome: "Sala de Exames 2" }, data: "2026-06-04", hora_inicio: "10:00", hora_fim: "12:00", valor: 160, status: "Concluída", notas: null },
-];
-
 const HORARIOS = [
   "07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
   "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00",
 ];
 
 export default function MinhasReservas() {
+  const searchParams = useSearchParams();
+  const pagamento = searchParams.get("pagamento");
+
   const [reservas, setReservas] = useState<Reserva[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("Todas");
@@ -42,6 +39,7 @@ export default function MinhasReservas() {
   const [salas, setSalas] = useState<Sala[]>([]);
   const [saving, setSaving] = useState(false);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [showFeedback, setShowFeedback] = useState(!!pagamento);
 
   const [salaId, setSalaId] = useState("");
   const [data, setData] = useState("");
@@ -55,7 +53,7 @@ export default function MinhasReservas() {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        setReservas(mockReservas);
+        setReservas([]);
         setLoading(false);
         return;
       }
@@ -66,9 +64,9 @@ export default function MinhasReservas() {
         .eq("user_id", user.id)
         .order("data", { ascending: false });
 
-      setReservas(!error && res && res.length > 0 ? res : mockReservas);
+      setReservas(!error && res ? res : []);
     } catch {
-      setReservas(mockReservas);
+      setReservas([]);
     }
     setLoading(false);
   }, []);
@@ -76,6 +74,13 @@ export default function MinhasReservas() {
   useEffect(() => {
     loadReservas();
   }, [loadReservas]);
+
+  useEffect(() => {
+    if (showFeedback) {
+      const timer = setTimeout(() => setShowFeedback(false), 8000);
+      return () => clearTimeout(timer);
+    }
+  }, [showFeedback]);
 
   async function loadSalas() {
     try {
@@ -86,16 +91,7 @@ export default function MinhasReservas() {
         .eq("status", "Disponível")
         .order("nome");
 
-      if (!error && data && data.length > 0) {
-        setSalas(data);
-      } else {
-        setSalas([
-          { id: "mock-1", nome: "Consultório 1A", tipo: "Consultório", preco_hora: 45, status: "Disponível" },
-          { id: "mock-2", nome: "Consultório 3A", tipo: "Consultório", preco_hora: 55, status: "Disponível" },
-          { id: "mock-3", nome: "Sala de Exames 2", tipo: "Exames", preco_hora: 80, status: "Disponível" },
-          { id: "mock-4", nome: "Consultório 5C", tipo: "Consultório", preco_hora: 60, status: "Disponível" },
-        ]);
-      }
+      setSalas(!error && data ? data : []);
     } catch {
       setSalas([]);
     }
@@ -145,36 +141,31 @@ export default function MinhasReservas() {
 
     setSaving(true);
     try {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-
-      if (!user) {
-        setErro("Você precisa estar logado para reservar");
-        setSaving(false);
-        return;
-      }
-
-      const valor = calcularValor();
-
-      const { error } = await supabase.from("reservas").insert({
-        sala_id: salaId,
-        user_id: user.id,
-        data,
-        hora_inicio: horaInicio,
-        hora_fim: horaFim,
-        valor,
-        status: "Pendente",
-        notas: notas || null,
+      const res = await fetch("/api/stripe/checkout-reserva", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sala_id: salaId,
+          data,
+          hora_inicio: horaInicio,
+          hora_fim: horaFim,
+        }),
       });
 
-      if (error) {
-        setErro("Erro ao criar reserva: " + error.message);
+      const result = await res.json();
+
+      if (!res.ok) {
+        setErro(result.error || "Erro ao criar reserva");
         setSaving(false);
         return;
       }
 
-      setShowModal(false);
-      await loadReservas();
+      if (result.url) {
+        window.location.href = result.url;
+        return;
+      }
+
+      setErro("Erro: URL de pagamento não retornada");
     } catch {
       setErro("Erro ao conectar com o servidor");
     }
@@ -209,6 +200,40 @@ export default function MinhasReservas() {
 
   return (
     <div className="p-8">
+      {showFeedback && pagamento === "sucesso" && (
+        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
+          <svg className="w-6 h-6 text-green-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <p className="font-bold text-green-800 text-sm">Pagamento confirmado!</p>
+            <p className="text-green-600 text-xs">Sua reserva foi paga com sucesso. Você receberá uma confirmação por e-mail.</p>
+          </div>
+          <button onClick={() => setShowFeedback(false)} className="ml-auto text-green-400 hover:text-green-600">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
+
+      {showFeedback && pagamento === "cancelado" && (
+        <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-center gap-3">
+          <svg className="w-6 h-6 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+          </svg>
+          <div>
+            <p className="font-bold text-amber-800 text-sm">Pagamento não concluído</p>
+            <p className="text-amber-600 text-xs">A reserva foi criada mas o pagamento não foi finalizado. Você pode tentar novamente.</p>
+          </div>
+          <button onClick={() => setShowFeedback(false)} className="ml-auto text-amber-400 hover:text-amber-600">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-extrabold text-dark">Minhas Reservas</h1>
@@ -239,7 +264,11 @@ export default function MinhasReservas() {
       <div className="space-y-3">
         {filtered.length === 0 ? (
           <div className="bg-white rounded-xl border border-slate-200 p-12 text-center">
-            <p className="text-slate-400 text-sm">Nenhuma reserva encontrada</p>
+            <svg className="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <p className="text-slate-400 text-sm mb-1">Nenhuma reserva encontrada</p>
+            <p className="text-slate-400 text-xs">Clique em &quot;+ Nova Reserva&quot; para começar</p>
           </div>
         ) : (
           filtered.map((r) => (
@@ -311,6 +340,9 @@ export default function MinhasReservas() {
                     </option>
                   ))}
                 </select>
+                {salas.length === 0 && (
+                  <p className="text-amber-500 text-xs mt-1">Nenhuma sala disponível no momento</p>
+                )}
               </div>
 
               <div>
@@ -392,12 +424,22 @@ export default function MinhasReservas() {
                 </button>
                 <button
                   type="submit"
-                  disabled={saving}
-                  className="flex-1 py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 transition-colors"
+                  disabled={saving || salas.length === 0}
+                  className="flex-1 py-2.5 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-dark disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
                 >
-                  {saving ? "Reservando..." : "Confirmar Reserva"}
+                  {saving ? (
+                    "Redirecionando..."
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                      </svg>
+                      Pagar e Reservar
+                    </>
+                  )}
                 </button>
               </div>
+              <p className="text-[10px] text-slate-400 text-center">Pagamento seguro via Stripe</p>
             </form>
           </div>
         </div>

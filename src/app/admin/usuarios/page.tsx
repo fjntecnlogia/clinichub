@@ -11,13 +11,7 @@ interface Profile {
   created_at: string;
 }
 
-const mockUsers: Profile[] = [
-  { id: "1", nome: "Dra. Ana Costa", email: "ana.costa@email.com", tipo: "profissional", especialidade: "Dermatologia", crm: "CRM-12345", telefone: "(84) 99999-0001", created_at: "2026-01-15" },
-  { id: "2", nome: "Dr. Pedro Alves", email: "pedro.alves@email.com", tipo: "profissional", especialidade: "Cirurgia Geral", crm: "CRM-23456", telefone: "(84) 99999-0002", created_at: "2025-11-20" },
-  { id: "3", nome: "Dra. Maria Lima", email: "maria.lima@email.com", tipo: "profissional", especialidade: "Psicologia", crm: "CRP-34567", telefone: "(84) 99999-0003", created_at: "2025-09-10" },
-  { id: "4", nome: "Dr. Lucas Neto", email: "lucas.neto@email.com", tipo: "profissional", especialidade: "Ortopedia", crm: "CRM-45678", telefone: null, created_at: "2026-03-05" },
-  { id: "5", nome: "Clínica Vida Plena", email: "contato@vidaplena.com", tipo: "clinica", especialidade: "Multi-especialidade", crm: null, telefone: "(84) 3333-4444", created_at: "2026-06-01" },
-];
+// sem dados mock
 
 async function getUsuarios() {
   try {
@@ -27,10 +21,10 @@ async function getUsuarios() {
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (error || !data || data.length === 0) return { users: mockUsers, real: false };
+    if (error || !data) return { users: [], real: false };
     return { users: data as Profile[], real: true };
   } catch {
-    return { users: mockUsers, real: false };
+    return { users: [], real: false };
   }
 }
 
@@ -48,7 +42,7 @@ export default async function AdminUsuarios() {
           <h1 className="text-2xl font-extrabold text-dark">Usuários</h1>
           <p className="text-slate-500 text-sm mt-1">
             {users.length} usuários cadastrados
-            {!real && <span className="text-amber-500 ml-2">(dados de demonstração)</span>}
+            {!real && users.length === 0 && <span className="text-slate-400 ml-2">(sem usuários ainda)</span>}
           </p>
         </div>
       </div>

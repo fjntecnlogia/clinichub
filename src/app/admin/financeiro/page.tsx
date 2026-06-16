@@ -45,31 +45,7 @@ interface Transacao {
 type TabFinanceiro = "visao" | "transacoes" | "alugueis" | "ecommerce";
 type Periodo = "7d" | "30d" | "90d" | "12m" | "total";
 
-// ─── Mocks ──────────────────────────────────────────────────
-
-const mockReservas: Reserva[] = [
-  { id: "r1", sala: { nome: "Consultório 1A" }, profile: { nome: "Dra. Ana Costa", email: "ana@email.com" }, data: "2026-06-02", hora_inicio: "08:00", hora_fim: "12:00", valor: 360, status: "Confirmada", created_at: "2026-06-01T10:00:00Z" },
-  { id: "r2", sala: { nome: "Sala Cirúrgica 1" }, profile: { nome: "Dr. Pedro Alves", email: "pedro@email.com" }, data: "2026-06-03", hora_inicio: "14:00", hora_fim: "18:00", valor: 480, status: "Confirmada", created_at: "2026-06-02T14:00:00Z" },
-  { id: "r3", sala: { nome: "Consultório 1B" }, profile: { nome: "Dra. Maria Lima", email: "maria@email.com" }, data: "2026-06-05", hora_inicio: "09:00", hora_fim: "11:00", valor: 180, status: "Confirmada", created_at: "2026-06-04T09:00:00Z" },
-  { id: "r4", sala: { nome: "Consultório 3A" }, profile: { nome: "Dr. Lucas Neto", email: "lucas@email.com" }, data: "2026-06-07", hora_inicio: "13:00", hora_fim: "17:00", valor: 220, status: "Pendente", created_at: "2026-06-06T08:00:00Z" },
-  { id: "r5", sala: { nome: "Consultório 5C" }, profile: { nome: "Dra. Julia Ramos", email: "julia@email.com" }, data: "2026-06-09", hora_inicio: "08:00", hora_fim: "10:00", valor: 120, status: "Confirmada", created_at: "2026-06-08T15:00:00Z" },
-  { id: "r6", sala: { nome: "Sala de Exames 2" }, profile: { nome: "Dr. Roberto Azevedo", email: "roberto@email.com" }, data: "2026-06-10", hora_inicio: "10:00", hora_fim: "14:00", valor: 320, status: "Cancelada", created_at: "2026-06-09T11:00:00Z" },
-  { id: "r7", sala: { nome: "Consultório 1A" }, profile: { nome: "Dra. Fernanda Rocha", email: "fernanda@email.com" }, data: "2026-06-11", hora_inicio: "08:00", hora_fim: "12:00", valor: 360, status: "Confirmada", created_at: "2026-06-10T07:00:00Z" },
-  { id: "r8", sala: { nome: "Sala Cirúrgica 1" }, profile: { nome: "Dr. Marcos Silva", email: "marcos@email.com" }, data: "2026-06-12", hora_inicio: "07:00", hora_fim: "13:00", valor: 720, status: "Confirmada", created_at: "2026-06-11T09:00:00Z" },
-  { id: "r9", sala: { nome: "Consultório 3A" }, profile: { nome: "Dra. Carla Dias", email: "carla@email.com" }, data: "2026-06-14", hora_inicio: "14:00", hora_fim: "16:00", valor: 110, status: "Pendente", created_at: "2026-06-13T10:00:00Z" },
-  { id: "r10", sala: { nome: "Consultório 1A" }, profile: { nome: "Dra. Ana Costa", email: "ana@email.com" }, data: "2026-06-16", hora_inicio: "08:00", hora_fim: "12:00", valor: 360, status: "Pendente", created_at: "2026-06-15T08:00:00Z" },
-];
-
-const mockPedidos: Pedido[] = [
-  { id: "p1", itens: [{ nome: "Estetoscópio Profissional", qty: 1, preco: 189.9 }], subtotal: 189.9, frete: 0, total: 189.9, status: "Entregue", metodo_pagamento: "Cartão de Crédito", created_at: "2026-06-01T12:00:00Z", profile: { nome: "Dra. Ana Costa", email: "ana@email.com" } },
-  { id: "p2", itens: [{ nome: "Luvas Estéreis cx/100", qty: 3, preco: 45.9 }], subtotal: 137.7, frete: 15, total: 152.7, status: "Entregue", metodo_pagamento: "PIX", created_at: "2026-06-03T09:00:00Z", profile: { nome: "Dr. Pedro Alves", email: "pedro@email.com" } },
-  { id: "p3", itens: [{ nome: "Mesa Auxiliar Portátil", qty: 1, preco: 459.9 }, { nome: "Máscara N95 cx/50", qty: 2, preco: 89.9 }], subtotal: 639.7, frete: 0, total: 639.7, status: "Pago", metodo_pagamento: "Cartão de Crédito", created_at: "2026-06-06T16:00:00Z", profile: { nome: "Dra. Maria Lima", email: "maria@email.com" } },
-  { id: "p4", itens: [{ nome: "Jaleco Premium", qty: 2, preco: 129.9 }], subtotal: 259.8, frete: 12, total: 271.8, status: "Em transito", metodo_pagamento: "Cartão de Crédito", created_at: "2026-06-08T14:00:00Z", profile: { nome: "Dr. Lucas Neto", email: "lucas@email.com" } },
-  { id: "p5", itens: [{ nome: "Kit Descartáveis Básico", qty: 5, preco: 32.9 }], subtotal: 164.5, frete: 18, total: 182.5, status: "Pendente", metodo_pagamento: null, created_at: "2026-06-10T11:00:00Z", profile: { nome: "Dra. Julia Ramos", email: "julia@email.com" } },
-  { id: "p6", itens: [{ nome: "Otoscópio Digital", qty: 1, preco: 349.9 }], subtotal: 349.9, frete: 0, total: 349.9, status: "Cancelado", metodo_pagamento: null, created_at: "2026-06-11T10:00:00Z", profile: { nome: "Dr. Roberto Azevedo", email: "roberto@email.com" } },
-  { id: "p7", itens: [{ nome: "Autoclave 12L", qty: 1, preco: 2890 }], subtotal: 2890, frete: 0, total: 2890, status: "Pago", metodo_pagamento: "PIX", created_at: "2026-06-13T08:00:00Z", profile: { nome: "Dra. Fernanda Rocha", email: "fernanda@email.com" } },
-  { id: "p8", itens: [{ nome: "Luvas Estéreis cx/100", qty: 2, preco: 45.9 }, { nome: "Máscara N95 cx/50", qty: 1, preco: 89.9 }], subtotal: 181.7, frete: 15, total: 196.7, status: "Pendente", metodo_pagamento: null, created_at: "2026-06-14T15:00:00Z", profile: { nome: "Dr. Marcos Silva", email: "marcos@email.com" } },
-];
+// ─── (sem dados mock — carrega direto do Supabase) ─────────
 
 // ─── Helpers ────────────────────────────────────────────────
 
@@ -110,10 +86,9 @@ const MONTHS_SHORT = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "S
 export default function AdminFinanceiro() {
   const [tab, setTab] = useState<TabFinanceiro>("visao");
   const [periodo, setPeriodo] = useState<Periodo>("30d");
-  const [reservas, setReservas] = useState<Reserva[]>(mockReservas);
-  const [pedidos, setPedidos] = useState<Pedido[]>(mockPedidos);
+  const [reservas, setReservas] = useState<Reserva[]>([]);
+  const [pedidos, setPedidos] = useState<Pedido[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isReal, setIsReal] = useState(false);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -123,9 +98,8 @@ export default function AdminFinanceiro() {
         supabase.from("reservas").select("*, sala:salas(nome), profile:profiles(nome, email)").order("created_at", { ascending: false }),
         supabase.from("pedidos").select("*, profile:profiles(nome, email)").order("created_at", { ascending: false }),
       ]);
-      if (!rRes.error && rRes.data?.length) setReservas(rRes.data as Reserva[]);
-      if (!pRes.error && pRes.data?.length) setPedidos(pRes.data as Pedido[]);
-      if ((!rRes.error && rRes.data?.length) || (!pRes.error && pRes.data?.length)) setIsReal(true);
+      if (!rRes.error && rRes.data) setReservas(rRes.data as Reserva[]);
+      if (!pRes.error && pRes.data) setPedidos(pRes.data as Pedido[]);
     } catch { /* mock fallback */ }
     setLoading(false);
   }, []);
@@ -268,7 +242,7 @@ export default function AdminFinanceiro() {
           </h1>
           <p className="text-slate-500 text-sm mt-1">
             Controle de receitas, pagamentos e operações
-            {!isReal && !loading && <span className="text-amber-500 ml-2">(dados de demonstração)</span>}
+            {!loading && reservas.length === 0 && pedidos.length === 0 && <span className="text-slate-400 ml-2">(sem dados ainda)</span>}
           </p>
         </div>
         <div className="flex items-center gap-3">

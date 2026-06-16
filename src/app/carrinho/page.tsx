@@ -45,7 +45,7 @@ export default function CarrinhoPage() {
     if (items.length === 0) return;
     setCheckoutLoading(true);
     try {
-      const res = await fetch("/api/checkout", {
+      const res = await fetch("/api/stripe/checkout-pedido", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -60,6 +60,11 @@ export default function CarrinhoPage() {
         }),
       });
       const data = await res.json();
+      if (res.status === 401) {
+        alert("Você precisa estar logado para finalizar a compra.");
+        window.location.href = "/login?redirect=/carrinho";
+        return;
+      }
       if (data.url) {
         window.location.href = data.url;
       } else {
@@ -85,8 +90,8 @@ export default function CarrinhoPage() {
             Continuar comprando
           </Link>
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white font-extrabold text-sm">CH</div>
-            <span className="font-extrabold text-dark">Clinic<span className="text-primary">Hub</span></span>
+            <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white font-extrabold text-sm">MH</div>
+            <span className="font-extrabold text-dark">Maci<span className="text-primary">Hub</span></span>
           </Link>
         </div>
       </header>
