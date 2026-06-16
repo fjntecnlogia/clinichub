@@ -56,7 +56,6 @@ export default function ProductPage() {
       foto_url: product.foto_url,
     }, qty);
     setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
   }
 
   if (loading) {
@@ -188,7 +187,7 @@ export default function ProductPage() {
                 <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
-                Frete grátis acima de R$ 299
+                Retirada no Instituto Macieski
               </div>
               <div className="flex items-center gap-1.5">
                 <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -200,6 +199,34 @@ export default function ProductPage() {
           </div>
         </div>
       </div>
+
+      {added && (
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setAdded(false)}>
+          <div className="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 text-center" onClick={(e) => e.stopPropagation()}>
+            <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-extrabold text-dark mb-1">Produto adicionado!</h3>
+            <p className="text-sm text-slate-500 mb-6">{product.nome} foi adicionado ao seu carrinho.</p>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/carrinho"
+                className="w-full py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-colors text-sm text-center"
+              >
+                Ver Carrinho
+              </Link>
+              <button
+                onClick={() => setAdded(false)}
+                className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-dark font-bold rounded-lg transition-colors text-sm"
+              >
+                Continuar Comprando
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

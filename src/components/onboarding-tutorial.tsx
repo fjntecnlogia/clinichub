@@ -33,7 +33,7 @@ const steps = [
       </svg>
     ),
     title: "Loja de Materiais",
-    description: "Acesse nossa loja com materiais odontológicos essenciais. Compre com frete grátis acima de R$150 e receba diretamente na clínica. Tudo em um só lugar!",
+    description: "Acesse nossa loja com materiais odontológicos essenciais. Compre e retire diretamente no Instituto Macieski. Tudo em um só lugar!",
     tip: "Use o botão laranja no topo do painel",
     highlight: "Loja",
   },

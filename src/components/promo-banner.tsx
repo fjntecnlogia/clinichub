@@ -35,7 +35,7 @@ export function PromoBanner() {
               <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
               <span className="flex items-center gap-2 text-sm font-bold">
                 <span className="text-lg">📦</span>
-                Loja com materiais odontológicos — frete grátis acima de R$150
+                Loja com materiais odontológicos — retire no instituto
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
               <span className="flex items-center gap-2 text-sm font-bold">
