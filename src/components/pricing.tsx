@@ -66,7 +66,7 @@ export function Pricing() {
               </ul>
 
               <a
-                href="https://wa.me/5500000000000?text=Olá!%20Quero%20reservar%20um%20pacote%20de%20horas%20no%20MaciHub"
+                href="https://wa.me/5565993241115?text=Olá!%20Quero%20reservar%20um%20pacote%20de%20horas%20no%20MaciHub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="animate-reservar-blue banner-shine block w-full py-3 bg-primary hover:bg-primary-dark text-white text-sm font-bold rounded-lg text-center"
@@ -125,7 +125,7 @@ export function Pricing() {
               </ul>
 
               <a
-                href="https://wa.me/5500000000000?text=Olá!%20Quero%20reservar%20um%20pacote%20de%20horas%20no%20MaciHub"
+                href="https://wa.me/5565993241115?text=Olá!%20Quero%20reservar%20um%20pacote%20de%20horas%20no%20MaciHub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="animate-reservar-blue banner-shine block w-full py-3 bg-primary hover:bg-primary-dark text-white text-sm font-bold rounded-lg text-center"
@@ -194,7 +194,7 @@ export function Pricing() {
               </ul>
 
               <a
-                href="https://wa.me/5500000000000?text=Olá!%20Quero%20reservar%20o%20pacote%20de%203%20horas%20no%20MaciHub"
+                href="https://wa.me/5565993241115?text=Olá!%20Quero%20reservar%20o%20pacote%20de%203%20horas%20no%20MaciHub"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="animate-reservar-orange banner-shine block w-full py-3 bg-secondary hover:bg-secondary-dark text-white text-sm font-bold rounded-lg text-center"

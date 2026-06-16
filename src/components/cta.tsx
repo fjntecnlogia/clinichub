@@ -29,7 +29,7 @@ export function CTA() {
             Junte-se aos dentistas que já estão economizando e crescendo.
           </p>
           <a
-            href="https://wa.me/5500000000000?text=Olá!%20Quero%20reservar%20minha%20cadeira%20no%20MaciHub"
+            href="https://wa.me/5565993241115?text=Olá!%20Quero%20reservar%20minha%20cadeira%20no%20MaciHub"
             target="_blank"
             rel="noopener noreferrer"
             className="animate-cta-bounce banner-shine inline-flex items-center justify-center px-8 py-3 bg-secondary hover:bg-secondary-dark text-white text-sm font-black rounded-lg shadow-lg"
