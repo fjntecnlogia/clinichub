@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
     await supabase
       .from("pagamentos")
       .update({
-        status: refund.amount === refund.charge ? "reembolsado" : "reembolso_parcial",
+        status: valor ? "reembolso_parcial" : "reembolsado",
         reembolso_valor: (refund.amount || 0) / 100,
         reembolso_motivo: motivo || null,
         reembolso_id: refund.id,

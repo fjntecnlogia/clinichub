@@ -61,7 +61,8 @@ export async function GET(req: NextRequest) {
 
     const salasReceita: Record<string, { nome: string; receita: number; count: number }> = {};
     reservas.filter((r) => r.status !== "Cancelada").forEach((r) => {
-      const nome = (r.sala as { nome: string } | null)?.nome || "Desconhecida";
+      const salaData = r.sala as unknown as { nome: string } | null;
+      const nome = salaData?.nome || "Desconhecida";
       if (!salasReceita[nome]) salasReceita[nome] = { nome, receita: 0, count: 0 };
       salasReceita[nome].receita += Number(r.valor);
       salasReceita[nome].count++;
